@@ -1,15 +1,16 @@
-<div class="footer">By Léfrost</div>
+<div class="container  stretch--  row--  row-centre--  text  text-default-black--  footer">
+	<div class="footer-text">by Léfrost</div>
+</div>
 
 <style lang="scss">
 	@import '../assets/scss/all.scss';
 
-	/* --- Footer --- */
-
 	.footer {
-		@include wrapper;
 		padding: $wrapper-gutter;
-		display: flex;
-		align-items: center;
-		justify-content: center;
+	}
+
+	.footer-text {
+		font-size: 1.5em;
+		opacity: 0.5;
 	}
 </style>

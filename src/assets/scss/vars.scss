@@ -1,30 +1,35 @@
 // @import url("https://fonts.googleapis.com/css2?family=DM+Sans&family=Rubik:wght@500&display=swap");
 
 @font-face {
-	font-family: 'Barndomsfirkante';
-	src: url('/fonts/Barndomsfirkante.ttf') format('truetype');
+	font-family: 'ComputerPixel7';
+	src: url('/fonts/ComputerPixel7.ttf') format('truetype');
 }
 
-$white: #fff;
-$black: #242424;
 $wrapper-gutter: 20px;
 $wrapper-width: 1200px;
+
+$default-black-hex: #010113;
+$default-black: 1, 1, 19;
+$default-white-hex: #fff;
+$default-white: 255, 255, 255;
 
 $bp-sm: 640px;
 $bp-md: 800px;
 $bp-lg: 1024px;
 $bp-xl: 1280px;
 
-$ff-base: 'Barndomsfirkante';
-$ff-alpha: 'Barndomsfirkante';
-$ff-style: 'Barndomsfirkante';
+$ff-base: 'ComputerPixel7';
+$ff-alpha: 'ComputerPixel7';
+$ff-style: 'ComputerPixel7';
 
 $header-height: 76px;
 $footer-height: 76px;
 
-$white-box-shadow: 0 0 50px -20px rgba($white, 0.2);
-$white-drop-shadow: 0 0 50px rgba($white, 0.2);
-$box-shadow: 0 0 30px -5px rgba($black, 0.2);
-$drop-shadow: 0 0 50px rgba($black, 0.2);
-$white-box-shadow-heavy: 0 0 100px 10px rgba($white, 0.8);
-$box-shadow-heavy: 0 0 100px 10px rgba($black, 0.8);
+// $white-box-shadow: 0 0 50px -20px rgba($default-white-hex, 0.2);
+// $white-drop-shadow: 0 0 50px rgba($default-white-hex, 0.2);
+// $box-shadow: 0 0 30px -5px rgba($default-black-hex, 0.2);
+// $drop-shadow: 0 0 50px rgba($default-black-hex, 0.2);
+// $white-box-shadow-heavy: 0 0 100px 10px rgba($default-white-hex, 0.8);
+// $box-shadow-heavy: 0 0 100px 10px rgba($default-black-hex, 0.8);
+
+$zi-window: 10;

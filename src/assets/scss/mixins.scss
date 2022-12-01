@@ -2,28 +2,210 @@
 	transition-duration: 0.2s;
 }
 
-@mixin clickable {
-	transition: filter 0.2s;
-	cursor: pointer;
-	@include swish;
-
-	&:hover {
-		filter: invert(20%);
-	}
-}
-
 @mixin background {
 	background-position: center;
 	background-repeat: no-repeat;
-
-	&.bg-left-- {
-		background-position: left;
-	}
 }
 
 @mixin wrapper {
 	width: calc(100% - #{$wrapper-gutter} * 2);
 	max-width: $wrapper-width;
-	padding: 0 $wrapper-gutter;
+	padding: $wrapper-gutter;
 	margin: 0 auto;
+}
+
+@mixin toggleable {
+	@include swish;
+
+	&:not(.toggled--) {
+		display: none;
+	}
+
+	&:not(.visible--) {
+		opacity: 0;
+	}
+}
+
+// @mixin pixel-text {
+// 	font-family: $ff-pixel;
+// 	text-transform: uppercase;
+// 	letter-spacing: 0.02em;
+// 	line-height: 1em;
+// }
+
+@mixin pixel-art {
+	image-rendering: -moz-crisp-edges;
+	image-rendering: -webkit-crisp-edges;
+	image-rendering: pixelated;
+	image-rendering: crisp-edges;
+}
+
+@mixin container-row {
+	flex-direction: row;
+	align-items: center;
+	text-align: left;
+
+	&.row-centre-- {
+		justify-content: center;
+		text-align: center;
+	}
+
+	&.row-wrap-- {
+		flex-wrap: wrap;
+	}
+
+	&.row-top-- {
+		align-items: flex-start;
+	}
+
+	// &.row-left-- {
+	// 	justify-content: flex-start;
+	// 	text-align: left;
+	// }
+
+	&.row-right-- {
+		justify-content: flex-end;
+		text-align: right;
+	}
+
+	&.row-bottom-- {
+		align-items: flex-end;
+	}
+}
+
+@mixin container-col {
+	flex-direction: column;
+	align-items: flex-start;
+
+	&.col-top-- {
+		justify-content: flex-start;
+	}
+
+	&.col-centre-- {
+		align-items: center;
+		text-align: center;
+	}
+
+	&.col-right-- {
+		align-items: flex-end;
+		text-align: right;
+	}
+
+	&.col-middle-- {
+		justify-content: center;
+	}
+
+	&.col-bottom-- {
+		justify-content: flex-end;
+	}
+
+	&.col-wrap-- {
+		flex-wrap: wrap;
+	}
+}
+
+@mixin parent-col-top($parent-mg) {
+	> a,
+	> div,
+	> img,
+	> span,
+	> :global(a),
+	> :global(div),
+	> :global(img) {
+		&:not(:first-child) {
+			margin-top: $parent-mg;
+		}
+	}
+}
+
+@mixin parent-col-bottom($parent-mg) {
+	> a,
+	> div,
+	> img,
+	> span,
+	> :global(a),
+	> :global(div),
+	> :global(img) {
+		&:not(:last-child) {
+			margin-bottom: $parent-mg;
+		}
+	}
+}
+
+@mixin parent-col-both($parent-mg) {
+	> a,
+	> div,
+	> img,
+	> span,
+	> :global(a),
+	> :global(div),
+	> :global(img) {
+		margin-top: $parent-mg;
+		margin-bottom: $parent-mg;
+	}
+}
+
+@mixin parent-row-left($parent-mg) {
+	> a,
+	> div,
+	> img,
+	> span,
+	> :global(a),
+	> :global(div),
+	> :global(img) {
+		&:not(:first-child) {
+			margin-left: $parent-mg;
+		}
+	}
+}
+
+@mixin parent-row-right($parent-mg) {
+	> a,
+	> div,
+	> img,
+	> span,
+	> :global(a),
+	> :global(div),
+	> :global(img) {
+		&:not(:last-child) {
+			margin-right: $parent-mg;
+		}
+	}
+}
+
+@mixin parent-row-both($parent-mg) {
+	> a,
+	> div,
+	> img,
+	> span,
+	> :global(a),
+	> :global(div),
+	> :global(img) {
+		margin-left: $parent-mg;
+		margin-right: $parent-mg;
+	}
+}
+
+@mixin hover-forward($scale) {
+	&:hover {
+		transform: scale(#{$scale});
+	}
+}
+
+@mixin hover-up($em) {
+	position: relative;
+	top: 0;
+
+	&:hover {
+		top: $em;
+		filter: saturate(90%);
+	}
+}
+
+@mixin card-background($colour-1, $alpha-1, $colour-2, $alpha-2, $degree) {
+	background: linear-gradient($degree, rgba($colour-1, $alpha-1), rgba($colour-2, $alpha-2));
+}
+
+@mixin card-border($width, $colour, $alpha) {
+	border: $width solid rgba($colour, $alpha);
 }
