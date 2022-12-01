@@ -116,12 +116,6 @@ export async function logout() {
 	location.reload();
 }
 
-// ---- glance
-
-// export async function getGlancesOfUser(data) {
-// 	return post(`glances_of_user`, data);
-// }
-
 // ---- user
 
 export async function editUser(data) {

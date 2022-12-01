@@ -31,6 +31,8 @@
 	"dependencies": {
 		"@rollup/plugin-inject": "^5.0.2",
 		"buffer": "^6.0.3",
+		"moment": "^2.29.4",
+		"moment-timezone": "^0.5.39",
 		"sass": "^1.49.0"
 	}
 }

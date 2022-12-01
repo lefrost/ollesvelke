@@ -2,11 +2,16 @@
 	import { onMount } from 'svelte';
 	import { Buffer } from 'buffer';
 
+	import * as api from '../assets/js/api';
+
 	import Footer from '../components/Footer.svelte';
 	import Header from '../components/Header.svelte';
 
 	onMount(async () => {
 		window.Buffer = window.Buffer || Buffer;
+
+		// await api.setSocket(socket);
+		// await api.checkSesh();
 	});
 </script>
 
