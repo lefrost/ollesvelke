@@ -1,4 +1,4 @@
-// @import url("https://fonts.googleapis.com/css2?family=DM+Sans&family=Rubik:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans&family=Rubik:wght@500&display=swap");
 
 @font-face {
 	font-family: 'ComputerPixel7';
@@ -8,28 +8,26 @@
 $wrapper-gutter: 20px;
 $wrapper-width: 1200px;
 
-$default-black-hex: #010113;
-$default-black: 1, 1, 19;
-$default-white-hex: #fff;
-$default-white: 255, 255, 255;
+$black-hex: #000000;
+$black: 0, 0, 0;
+$white-hex: #fff;
+$white: 255, 255, 255;
 
 $bp-sm: 640px;
 $bp-md: 800px;
 $bp-lg: 1024px;
 $bp-xl: 1280px;
 
-$ff-base: 'ComputerPixel7';
-$ff-alpha: 'ComputerPixel7';
-$ff-style: 'ComputerPixel7';
+$ff-base: 'DM Sans';
+$ff-alpha: 'DM Sans';
+$ff-style: 'DM Sans';
+$ff-custom: 'ComputerPixel7';
 
-$header-height: 76px;
-$footer-height: 76px;
-
-// $white-box-shadow: 0 0 50px -20px rgba($default-white-hex, 0.2);
-// $white-drop-shadow: 0 0 50px rgba($default-white-hex, 0.2);
-// $box-shadow: 0 0 30px -5px rgba($default-black-hex, 0.2);
-// $drop-shadow: 0 0 50px rgba($default-black-hex, 0.2);
-// $white-box-shadow-heavy: 0 0 100px 10px rgba($default-white-hex, 0.8);
-// $box-shadow-heavy: 0 0 100px 10px rgba($default-black-hex, 0.8);
+// $white-box-shadow: 0 0 50px -20px rgba($white-hex, 0.2);
+// $white-drop-shadow: 0 0 50px rgba($white-hex, 0.2);
+// $box-shadow: 0 0 30px -5px rgba($black-hex, 0.2);
+// $drop-shadow: 0 0 50px rgba($black-hex, 0.2);
+// $white-box-shadow-heavy: 0 0 100px 10px rgba($white-hex, 0.8);
+// $box-shadow-heavy: 0 0 100px 10px rgba($black-hex, 0.8);
 
 $zi-window: 10;

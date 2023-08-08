@@ -21,8 +21,8 @@
 	flex-direction: column;
 	flex-grow: 1;
 	position: relative;
-	background-color: $default-white-hex;
-	color: $default-black-hex;
+	background-color: $white-hex;
+	color: $black-hex;
 }
 
 :global(a) {
@@ -36,8 +36,7 @@
 	font-family: $ff-base;
 	line-height: 1;
 	scroll-behavior: smooth;
-	letter-spacing: 0.02em;
-	line-height: 1em;
+	letter-spacing: -0.04em;
 	-webkit-tap-highlight-color: transparent;
 }
 
@@ -48,18 +47,18 @@
 
 /* Track */
 :global(::-webkit-scrollbar-track) {
-	background: $default-black-hex;
+	background: $black-hex;
 }
 
 /* Handle */
 :global(::-webkit-scrollbar-thumb) {
-	background: rgba($default-white-hex, 0.05);
+	background: rgba($white-hex, 0.05);
 	border-radius: 0.5em;
 }
 
 /* Handle on hover */
 :global(::-webkit-scrollbar-thumb:hover) {
-	background: rgba($default-white-hex, 0.1);
+	background: rgba($white-hex, 0.1);
 }
 
 /* --- Visibility --- */
@@ -69,7 +68,8 @@
 
 	&.sm-down--,
 	&.md-down--,
-	&.lg-down-- {
+	&.lg-down--,
+	&.xl-down-- {
 		display: flex !important;
 	}
 }
@@ -82,7 +82,8 @@
 
 		&.sm-up--,
 		&.md-down--,
-		&.lg-down-- {
+		&.lg-down--,
+		&.xl-down-- {
 			display: flex !important;
 		}
 	}
@@ -95,7 +96,8 @@
 		}
 
 		&.md-up--,
-		&.lg-down-- {
+		&.lg-down--,
+		&.xl-down-- {
 			display: flex !important;
 		}
 	}
@@ -107,11 +109,25 @@
 			display: none !important;
 		}
 
-		&.lg-up-- {
+		&.lg-up--,
+		&.xl-down-- {
 			display: flex !important;
 		}
 	}
 }
+
+@media (min-width: $bp-xl) {
+	.visibility {
+		&.xl-down-- {
+			display: none !important;
+		}
+
+		&.xl-up--{
+			display: flex !important;
+		}
+	}
+}
+
 /* --- Container --- */
 
 .container {
@@ -122,7 +138,7 @@
 
 	--scr-w: 0.24em;
 	--scr-tr-a: 0.2;
-	--scr-clr: #{$default-white};
+	--scr-clr: #{$white};
 	--scr-th-a: 1;
 
 	/* width */
@@ -143,7 +159,7 @@
 
 	/* Handle on hover */
 	&::-webkit-scrollbar-thumb:hover {
-		background: rgba($default-black-hex, 0.8);
+		background: rgba($black-hex, 0.8);
 	}
 
 	// don't set parent-mg inside .container (otherwise it'll override, won't work properly), set it in respective .svelte files instead
@@ -242,19 +258,27 @@
 // ---- Text
 
 .text {
-	--text-colour: #{$default-black};
+	--text-colour: #{$white};
+
 	color: rgb(var(--text-colour));
-	text-shadow: 0 0 0.6em rgba(var(--text-colour), 0.3);
+	// text-shadow: 0 0 0.6em rgba(var(--text-colour), 0.5);
 
 	// colour
 
-	&.text-default-black-- {
-		--text-colour: #{$default-black};
+	&.text-black-- {
+		--text-colour: #{$black};
 	}
 
-	&.text-default-white-- {
-		--text-colour: #{$default-white};
+	&.text-white-- {
+		--text-colour: #{$white};
 	}
+}
+
+// ---- disabled
+
+.disabled {
+	opacity: 0.35 !important;
+	pointer-events: none !important;
 }
 
 // ---- Card
@@ -264,14 +288,15 @@
 }
 
 .card {
-	--bg-1: #{$default-white};
-	--bg-2: #{$default-white};
+	--bg-1: #{$white};
+	--bg-2: #{$white};
 	--bg-a1: 0;
 	--bg-a2: 0.05;
 	--bg-deg: 90deg;
-	--bd: #{$default-white};
+	--bd: #{$white};
 	--bd-a: 0;
 	--bd-w: 0em;
+	--bd-r: 0.03em;
 	@include swish;
 	top: 0;
 	position: relative;
@@ -281,7 +306,17 @@
 		rgba(var(--bg-2), var(--bg-a2))
 	);
 	border: var(--bd-w) solid rgba(var(--bd), var(--bd-a));
-	border-radius: 2px;
+	border-radius: var(--bd-r);
+
+	&.no-hover--:hover {
+		// cursor: url('/images/commons/cursors/default.png'), auto;
+	}
+
+	&.moveup-- {
+		&:hover {
+			z-index: 2;
+		}
+	}
 
 	&.fill-- {
 		--bg-a1: 1;
@@ -290,16 +325,10 @@
 
 	// colour
 
-	&.default-black-- {
-		--bg-1: #{$default-black};
-		--bg-2: #{$default-black};
-		--bd: #{$default-black};
-	}
-
-	&.default-white-- {
-		--bg-1: #{$default-white};
-		--bg-2: #{$default-white};
-		--bd: #{$default-white};
+	&.white-- {
+		--bg-1: #{$white};
+		--bg-2: #{$white};
+		--bd: #{$white};
 	}
 }
 
@@ -314,9 +343,29 @@
 	width: calc(100% - 2em * 2);
 	height: calc(100% - 2em * 2);
 	padding: 2em;
-	background-color: rgba($default-black-hex, 0.93);
+	background-color: rgba($black-hex, 0.93);
 	z-index: $zi-window;
 }
+
+// .window-inner {
+// 	overflow: auto;
+// 	max-height: calc(100% - 2em * 2 - $wrapper-gutter * 2);
+// 	width: calc(100% - 1em * 2 - $wrapper-gutter * 2);
+// 	max-width: calc(100% - 1em * 2 - $wrapper-gutter * 2);
+// 	padding: 1em;
+// }
+
+// .window-close {
+// 	padding: 0.3em 0.65em 0.2em;
+// 	--bg-a-1: 0.05;
+// 	--bg-a-2: 0.1;
+// 	@include hover-forward(1.08);
+
+// 	> div {
+// 		font-size: 0.9em;
+// 		font-weight: bold;
+// 	}
+// }
 
 .bg {
 	position: fixed;
@@ -328,5 +377,5 @@
 	// background-image: url('/images/backgrounds/default-1.png');
 	background-size: cover;
 	background-position: center;
-	opacity: 0.03;
+	opacity: 1;
 }

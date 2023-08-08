@@ -1,9 +1,48 @@
 <script lang="ts">
+	// imports
+
+	import { clusterApiUrl } from '@solana/web3.js';
+	import {
+			workSpace,
+			WalletProvider,
+			ConnectionProvider,
+			WalletMultiButton,
+	} from "@svelte-on-solana/wallet-adapter-ui";
+	import {
+		PhantomWalletAdapter,
+		BackpackWalletAdapter,
+		LedgerWalletAdapter,
+		SolflareWalletAdapter,
+		SolletExtensionWalletAdapter,
+	} from "@solana/wallet-adapter-wallets";
+
+	// consts
+
+	const wallets = [
+		new PhantomWalletAdapter(),
+		new BackpackWalletAdapter(),
+		new SolflareWalletAdapter(),
+		new SolletExtensionWalletAdapter(),
+		new LedgerWalletAdapter(),
+	];
+	const localStorageKey = "walletAdapter";
+	const network = clusterApiUrl("mainnet-beta");
 </script>
 
-<div class="container  stretch--  row--  row-centre--  text  text-default-black--  header">
-	<a href="/" class="header-link  title--">ollesvelke</a>
-	<a href="https://github.com/lefrst/ollesvelke" class="text  text-black--  header-link">Github</a>
+<WalletProvider
+	{localStorageKey}
+	{wallets}
+	autoConnect={false}
+/>
+
+<ConnectionProvider
+	{network}
+/>
+
+<div class="container  stretch--  row--  row-centre--  text  text-black--  header">
+	<WalletMultiButton>
+			Connect Wallet
+	</WalletMultiButton>
 </div>
 
 <style lang="scss">
@@ -14,19 +53,6 @@
 	.header {
 		// @include wrapper;
 		padding: $wrapper-gutter;
-		@include parent-row-right(1em);
-	}
-
-	.header-link {
-		@include swish;
-		font-size: 1.6em;
-
-		&.title-- {
-			font-size: 2.4em;
-		}
-
-		&:hover {
-			opacity: 0.6;
-		}
+		// @include parent-row-right(1em);
 	}
 </style>

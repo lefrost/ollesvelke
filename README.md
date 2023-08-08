@@ -5,3 +5,4 @@
 - deploy: link repo to [vercel](https://vercel.com). ensure correct node version in [settings](https://vercel.com/changelog/node-js-version-now-customizable-in-the-project-settings).
 - ts & scss support, base assets & styles, and session storage.
 - support for socket.io and/or rest api.
+- support for solana login.

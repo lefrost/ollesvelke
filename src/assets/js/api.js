@@ -1,5 +1,5 @@
 import { socket, io_instances, theme, user, sesh } from './stores.js';
-import * as utils from './utils';
+import * as utils from './utils.js';
 
 import { browser } from '$app/environment';
 

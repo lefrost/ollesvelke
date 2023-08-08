@@ -33,5 +33,15 @@ export default defineConfig({
 				plugins: [inject({ Buffer: ['buffer', 'Buffer'] })]
 			}
 		}
-	}
+	},
+
+	build: { // https://stackoverflow.com/a/76802679/8919391
+    target: 'esnext',
+  },
+
+	optimizeDeps: { // https://stackoverflow.com/a/76802679/8919391
+    esbuildOptions: {
+      target: 'esnext',
+    },
+  },
 });

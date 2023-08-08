@@ -2,9 +2,17 @@
 	transition-duration: 0.2s;
 }
 
+@mixin clickable {
+	// cursor: url('/images/commons/cursors/hover.png'), pointer;
+}
+
 @mixin background {
 	background-position: center;
 	background-repeat: no-repeat;
+
+	&.bg-left-- {
+		background-position: left;
+	}
 }
 
 @mixin wrapper {
@@ -25,13 +33,6 @@
 		opacity: 0;
 	}
 }
-
-// @mixin pixel-text {
-// 	font-family: $ff-pixel;
-// 	text-transform: uppercase;
-// 	letter-spacing: 0.02em;
-// 	line-height: 1em;
-// }
 
 @mixin pixel-art {
 	image-rendering: -moz-crisp-edges;
@@ -109,6 +110,7 @@
 	> div,
 	> img,
 	> span,
+	> input,
 	> :global(a),
 	> :global(div),
 	> :global(img) {
@@ -123,6 +125,7 @@
 	> div,
 	> img,
 	> span,
+	> input,
 	> :global(a),
 	> :global(div),
 	> :global(img) {
@@ -137,6 +140,7 @@
 	> div,
 	> img,
 	> span,
+	> input,
 	> :global(a),
 	> :global(div),
 	> :global(img) {
@@ -150,6 +154,7 @@
 	> div,
 	> img,
 	> span,
+	> input,
 	> :global(a),
 	> :global(div),
 	> :global(img) {
@@ -164,6 +169,7 @@
 	> div,
 	> img,
 	> span,
+	> input,
 	> :global(a),
 	> :global(div),
 	> :global(img) {
@@ -178,6 +184,7 @@
 	> div,
 	> img,
 	> span,
+	> input,
 	> :global(a),
 	> :global(div),
 	> :global(img) {
@@ -209,3 +216,27 @@
 @mixin card-border($width, $colour, $alpha) {
 	border: $width solid rgba($colour, $alpha);
 }
+
+// text
+
+@mixin custom-text {
+	font-family: $ff-custom;
+	text-transform: uppercase;
+	letter-spacing: 0.02em;
+	line-height: 1em;
+}
+
+// space
+
+// @mixin custom-card {
+// 	--bg-1: #{$default-black};
+// 	--bg-2: #{$default-black};
+// 	--bg-a1: 0.6;
+// 	--bg-a2: 0.8;
+// 	--bd-r: 0.3em;
+// 	// --bd: #{$default-white};
+// 	--bd-a: 0.1;
+// 	--bd-w: 0.14em;
+// 	box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.5);
+// 	@include hover-forward(1.04);
+// }
