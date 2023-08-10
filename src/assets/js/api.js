@@ -1,9 +1,10 @@
-import { socket, io_instances, theme, user, sesh } from './stores.js';
-import * as utils from './utils.js';
+import { socket, io_instances, theme, user, sesh, page_code } from './stores.js';
+import * as utils from './utils';
 
 import { browser } from '$app/environment';
 
 const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 export async function checkSesh() {
 	let sesh = await getSesh();
@@ -62,6 +63,18 @@ export async function getSesh() {
 
 export async function setSesh(val) {
 	sesh.set(val);
+}
+
+export async function getPageCode() {
+	return new Promise((resolve, reject) => {
+		page_code.subscribe((page_code) => {
+			if (browser) resolve(page_code);
+		});
+	});
+}
+
+export async function setPageCode(val) {
+	page_code.set(val);
 }
 
 export async function getCurrentUser() {
@@ -152,6 +165,24 @@ export async function editUser(data) {
 
 // ---- routes
 
+export async function restPost(d) {
+	if (!d.skip_intiation_check) {
+		let initiated = (
+			await bePost({
+				url: `init`,
+				payload: {}
+			})
+		).cache;
+
+		if (!initiated) {
+			location.reload();
+			return;
+		}
+	}
+
+	return await bePost(d);
+}
+
 export async function post(d) {
 	if (!d.skip_intiation_check) {
 		let initiated = (
@@ -175,48 +206,55 @@ export async function post(d) {
 
 async function ioPost(d) {
 	return await new Promise((resolve) => {
-		d.socket.emit(d.url, d.payload, (r) => {
-			resolve(d.all ? r : r.data);
-		});
+		d.socket.emit(
+			d.url,
+			{
+				...d.payload,
+				api_key: API_KEY
+			},
+			(r) => {
+				resolve(d.all ? r : r.data);
+			}
+		);
 	});
 }
 
 // ---- mongo
 
-// async function beGet(endpoint) {
-// 	return new Promise((resolve, reject) => {
-// 		let url = `${API_ENDPOINT}${endpoint}`;
+async function beGet(endpoint) {
+	return new Promise((resolve, reject) => {
+		let url = `${API_ENDPOINT}${endpoint}`;
 
-// 		$.getJSON(url, function (data) {
-// 			resolve(data);
-// 		}).fail(() => resolve(null));
-// 	});
-// }
+		$.getJSON(url, function (data) {
+			resolve(data);
+		}).fail(() => resolve(null));
+	});
+}
 
-// async function bePost(endpoint, obj) {
-// 	let config = {
-// 		method: `POST`,
-// 		headers: {
-// 			Accept: `application/json`,
-// 			'Content-Type': `application/json`
-// 		}
-// 	};
+async function bePost(d) {
+	let config = {
+		method: `POST`,
+		headers: {
+			Accept: `application/json`,
+			'Content-Type': `application/json`
+		}
+	};
 
-// 	if (!utils.isEmptyObj(obj)) {
-// 		config.body = JSON.stringify(obj);
-// 	}
+	// if (!utils.isEmptyObj(d.payload)) {
+	config.body = JSON.stringify({ ...(d.payload || {}), api_key: API_KEY });
+	// }
 
-// 	try {
-// 		let res = await (await fetch(`${API_ENDPOINT}${endpoint}`, config)).text();
+	try {
+		let res = JSON.parse(await (await fetch(`${API_ENDPOINT}${d.url}`, config)).text());
 
-// 		try {
-// 			return JSON.parse(res);
-// 		} catch {
-// 			return res;
-// 		}
-// 	} catch (e) {
-// 		console.log(`error`);
-// 		console.log(e);
-// 		return null;
-// 	}
-// }
+		try {
+			return d.all ? res : res.data;
+		} catch (e) {
+			console.log(e);
+			return res;
+		}
+	} catch (e) {
+		console.log(e);
+		return null;
+	}
+}

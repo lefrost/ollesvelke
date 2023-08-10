@@ -1,5 +1,6 @@
 import moment from 'moment';
 import moment_tz from 'moment-timezone';
+import _ from 'lodash';
 
 // export function formatNumber(num) {
 // 	return numeral(num).format('0a');
@@ -94,11 +95,39 @@ export function convertToTimestamp(input, format) {
 	return moment.utc(input, format).unix();
 }
 
+export function datetimeToTimestamp(d) {
+	// new
+	try {
+		let datetime_timezone = d.datetime_timezone || `UTC`;
+		let datetime = d.datetime || ``;
+		
+		return Number(moment(datetime).tz(datetime_timezone).format(`X`));
+	} catch (e) {
+		console.log(e);
+		return null;
+	}
+}
+
+export function timestampToDatetime(d) {
+	// new
+	try {
+		let timestamp = d.timestamp || 0;
+		let datetime_timezone = d.datetime_timezone || `UTC`;
+		let datetime_format = d.datetime_format || `YYYY-MM-DDTHH:mm`;
+		
+		return moment.tz(moment.unix(timestamp), datetime_timezone).format(datetime_format);
+	} catch (e) {
+		console.log(e);
+		return null;
+	}
+}
+
 export function formatTimestamp(timestamp, format) {
 	return moment.unix(timestamp).utc().format(format);
 }
 
 export function formatDatetime(datetime, format, timezone) {
+	// deprecated
 	if (!timezone) {
 		timezone = `UTC`;
 	}
@@ -111,6 +140,8 @@ export function getTimestampDiff(start, end, format) {
 	switch (format) {
 		case `days`:
 			return diff.asDays();
+		case `hours`:
+			return diff.asHours();
 		case `minutes`:
 			return diff.asMinutes();
 		case `seconds`:
@@ -127,6 +158,8 @@ export function getDatetimeDiff(start, end, format) {
 			return diff.asDays();
 		case `minutes`:
 			return diff.asMinutes();
+		case `minutes`:
+			return diff.asHours();
 		case `seconds`:
 		default:
 			return diff.asSeconds();
@@ -147,6 +180,51 @@ export function alterTimestamp(operation, offset, type, timestamp) {
 				.unix();
 		default:
 			return timestamp;
+	}
+}
+
+export function getDisplayableTimeElapsed(timestamp) {
+	if (timestamp <= 0) {
+		return `n/a`;
+	}
+
+	let now = getTimestamp();
+	let diff_in_seconds = getTimestampDiff(timestamp, now, `seconds`);
+	let diff_in_minutes = getTimestampDiff(timestamp, now, `minutes`);
+	let diff_in_hours = getTimestampDiff(timestamp, now, `hours`);
+	let diff_in_days = getTimestampDiff(timestamp, now, `days`);
+
+	if (diff_in_seconds < 60) {
+		return `${Math.floor(diff_in_seconds)}s`;
+	} else if (diff_in_minutes < 60) {
+		return `${Math.floor(diff_in_minutes)}m`;
+	} else if (diff_in_hours < 24) {
+		return `${Math.floor(diff_in_hours)}h`;
+	} else {
+		return `${Math.floor(diff_in_days)}d`;
+	}
+}
+
+export function getDisplayableTimeBefore(timestamp) {
+	if (timestamp <= 0) {
+		return `n/a`;
+	}
+	
+	let now = getTimestamp();
+	let diff_in_seconds = getTimestampDiff(now, timestamp, `seconds`);
+	let diff_in_minutes = getTimestampDiff(now, timestamp, `minutes`);
+	let diff_in_hours = getTimestampDiff(now, timestamp, `hours`);
+	let diff_in_days = getTimestampDiff(now, timestamp, `days`);
+
+	if (diff_in_seconds < 60) {
+		// return `${Math.floor(diff_in_seconds)}s`;
+		return `Now`;
+	} else if (diff_in_minutes < 60) {
+		return `${Math.floor(diff_in_minutes)}m`;
+	} else if (diff_in_hours < 24) {
+		return `${Math.floor(diff_in_hours)}h`;
+	} else {
+		return `${Math.floor(diff_in_days)}d`;
 	}
 }
 
@@ -232,6 +310,14 @@ export function resetErrors(arr) {
 	return arr;
 }
 
+export function calcValBeforePercChange(val, perc_change) {
+	let val_before_perc_change = (val / (100 + perc_change)) * 100;
+	if (val_before_perc_change === Infinity) {
+		val_before_perc_change = val * 2;
+	}
+	return val_before_perc_change || 0;
+}
+
 export function calcPercChange(a, b) {
 	if (a === null || b === null) {
 		return 0;
@@ -263,6 +349,10 @@ export function round(num, precision) {
 }
 
 export function shortenString(data) {
+	if (data.string) {
+		data.string = data.string.toString();
+	}
+
 	if (!data.left && !data.right) {
 		data.right = true;
 	}
@@ -277,6 +367,15 @@ export function shortenString(data) {
 		}
 	} else {
 		return data.string;
+	}
+}
+
+export function formatUrl(url) {
+	try {
+		let { hostname } = new URL(url);
+		return hostname.replace(`www.`, ``);
+	} catch (e) {
+		return ``;
 	}
 }
 
@@ -348,4 +447,123 @@ export function getIoInstanceStatuses() {
 			colour: `map-yellow`
 		}
 	];
+}
+
+export function calcUserAccessLevel(user) {
+	let obj = {
+		access_level: 0,
+		collections: []
+	};
+
+	let suave_collections = [
+		{
+			code: `suaveseals`,
+			name: `Suave Seals`,
+			amount: 100,
+			image_url: `https://creator-hub-prod.s3.us-east-2.amazonaws.com/suaveseals_pfp_1649551224701.png`
+		}
+	];
+
+	if (user && user.collections) {
+		for (let collection of user.collections) {
+			let matching_suave_collection = suave_collections.find((c) => c.code === collection.code);
+
+			if (!isEmptyObj(matching_suave_collection)) {
+				obj.collections.push({
+					...matching_suave_collection,
+					nfts: collection.nfts,
+					count: collection.nfts.length
+				});
+
+				obj.access_level += matching_suave_collection.amount * collection.nfts.length;
+			}
+		}
+	}
+
+	return obj;
+}
+
+export function scrollToItemInContainer(data) {
+	data.container_div.scrollBy({
+		top: data.item_div.offsetTop - data.container_div.scrollTop - 150,
+		left: 0,
+		behavior: 'smooth'
+	});
+}
+
+export function getStringLength(str) {
+	try {
+		str = str || ``;
+		return _.toArray(str.toString().trim()).length;
+	} catch (e) {
+		console.log(e);
+		return 0;
+	}
+}
+
+export function getImgSrc(file) {
+	return new Promise(async (resolve, reject) => {
+		const reader = new FileReader();
+		reader.readAsDataURL(file);
+		reader.addEventListener(`load`, function () {
+			resolve(reader.result);
+		});
+	});
+}
+
+export function getBlockchain(blockchain) {
+	try {
+		blockchain = blockchain.trim().toLowerCase();
+
+		if (blockchain === `solana` || blockchain.startsWith(`sol`)) {
+			return `solana`;
+		} else if (blockchain === `arbitrum` || blockchain.startsWith(`arb`)) {
+			return `arbitrum`;
+		} else if (blockchain === `bitcoin` || blockchain.startsWith(`btc`)) {
+			return `bitcoin`;
+		} else if (blockchain === `ethereum` || blockchain.startsWith(`eth`)) {
+			return `ethereum`;
+		} else if (
+			blockchain === `polygon` ||
+			blockchain === `matic` ||
+			blockchain.startsWith(`poly`) ||
+			blockchain.startsWith(`matic`)
+		) {
+			return `polygon`;
+		} else if (blockchain === `sui` || blockchain.startsWith(`sui`)) {
+			return `sui`;
+		} else {
+			return null;
+		}
+	} catch (e) {
+		console.log(e);
+		return null;
+	}
+}
+
+export function getWeightedRandom(d) {
+	try {
+		let arr = d.arr || [];
+		let rarity_prop = d.rarity_prop || ``;
+		let value_prop = d.value_prop || ``;
+		
+		let sum = 0;
+		let r = getRandomNumber(0, 100);
+		arr = (arr || []).sort((a, b) => b[rarity_prop] - a[rarity_prop]);
+
+		for (let i = 0; i < arr.length; i++) {
+			sum += arr[i][rarity_prop];
+			if (r <= sum) return arr[i];
+		}
+
+		return value_prop ? arr[0] : arr[0][value_prop];
+	} catch (e) {
+		console.log(e);
+		return null;
+	}
+}
+
+export function removeAccents(str) {
+	// https://stackoverflow.com/a/37511463/8919391
+	return str.normalize(`NFD`).replace(/\p{Diacritic}/gu, ``);
 }

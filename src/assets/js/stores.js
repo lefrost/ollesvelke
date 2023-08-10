@@ -15,6 +15,11 @@ socket.subscribe((val) => {
 	if (browser) return (localStorage.io_instances = val);
 });
 
+export const page_code = writable((browser && localStorage.getItem('page_code')) || null);
+page_code.subscribe((val) => {
+	if (browser) return (localStorage.page_code = val);
+});
+
 export const sesh = writable((browser && localStorage.getItem('sesh')) || null);
 sesh.subscribe((val) => {
 	if (browser) return (localStorage.sesh = val);
