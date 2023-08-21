@@ -567,3 +567,20 @@ export function removeAccents(str) {
 	// https://stackoverflow.com/a/37511463/8919391
 	return str.normalize(`NFD`).replace(/\p{Diacritic}/gu, ``);
 }
+
+export function compressImage(d) {
+	try {
+		let image_url = d.image_url || ``;
+		let width = d.width || 0;
+		let height = d.height || width;
+	
+		return `https://img-cdn.magiceden.dev/rs:fill:${width}:${height}:0:0/plain/${image_url}`;
+	} catch (e) {
+		console.log(e);
+		return null;
+	}
+}
+
+export function copyToClipboard(text) {
+	navigator.clipboard.writeText(text);
+}
