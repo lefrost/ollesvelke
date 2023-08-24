@@ -1,47 +1,46 @@
-// vite.config.js
-import { sveltekit } from '@sveltejs/kit/vite';
-import { defineConfig } from 'vite';
-import dns from 'dns';
+import { sveltekit } from "@sveltejs/kit/vite";
 import inject from '@rollup/plugin-inject';
-dns.setDefaultResultOrder('verbatim');
+import { defineConfig } from "vite";
 
-export default defineConfig({
-	plugins: [sveltekit()],
+export default defineConfig(({ mode }) => {
+	return {
+		plugins: [
+			sveltekit(),
+		],
 
-	server: {
-		port: 3000,
-		fs: {
-			strict: false
-		}
-	},
+		server: {
+			port: 3000,
+			fs: {
+				strict: false
+			}
+		},
 
-	preview: {
-		port: 3000
-	},
+		preview: {
+			port: 3000
+		},
 
-	vite: {
-		define: {
-			'process.env.BROWSER': true
+
+		build : {
+			target: "es2020",
+			rollupOptions: {
+				plugins: [
+					// Important for wallet adapter to work.
+					inject({ Buffer: ['buffer', 'Buffer'] })
+				]
+			}
+		},
+		
+		// Important for wallet adapter to work.
+		resolve: {
+			alias: {
+				path: 'path-browserify',
+			},
 		},
 
 		optimizeDeps: {
-			include: ['@solana/web3.js', 'buffer']
+			esbuildOptions: {
+				target: "es2020",
+			},
 		},
-
-		build: {
-			rollupOptions: {
-				plugins: [inject({ Buffer: ['buffer', 'Buffer'] })]
-			}
-		}
-	},
-
-	build: { // https://stackoverflow.com/a/76802679/8919391
-    target: 'esnext',
-  },
-
-	optimizeDeps: { // https://stackoverflow.com/a/76802679/8919391
-    esbuildOptions: {
-      target: 'esnext',
-    },
-  },
+	};
 });
