@@ -34,6 +34,7 @@
 				is_active = true;
 			}
 
+			// note: if any `getInitiated()` type function is run here, put `api.checkSesh()` inside some sort of `if (initiated)` condition, to prevent repeatedly reloading page before initilisation
 			// await api.setSocket(socket);
 			// await api.checkSesh();
 		}
