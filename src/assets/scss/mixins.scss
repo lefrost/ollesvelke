@@ -226,7 +226,7 @@
 	line-height: 1em;
 }
 
-// space
+// card
 
 // @mixin custom-card {
 // 	--bg-1: #{$default-black};
@@ -240,3 +240,33 @@
 // 	box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.5);
 // 	@include hover-forward(1.04);
 // }
+
+// animation
+
+@mixin pulse-once($colour-hex)  {
+	animation: pulse-once-animation 0.5s;
+
+	@keyframes pulse-once-animation {
+    0% {
+      box-shadow: 0em 0em 0em 0em rgba($colour-hex, 0.3);
+    }
+
+    100% {
+      box-shadow: 0em 0em 0.8em 0.8em rgba($colour-hex, 0);
+    }
+  }
+}
+
+@mixin pulse($colour-hex)  {
+	animation: pulse-animation 1s infinite;
+
+	@keyframes pulse-animation {
+    0% {
+      box-shadow: 0em 0em 0em 0em rgba($colour-hex, 0.3);
+    }
+
+    100% {
+      box-shadow: 0em 0em 0.8em 0.8em rgba($colour-hex, 0);
+    }
+  }
+}

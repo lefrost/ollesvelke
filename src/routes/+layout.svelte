@@ -3,33 +3,46 @@
 
 	import { onDestroy, onMount } from 'svelte';
 	import { browser } from '$app/environment';
-	import { page, navigating } from '$app/stores';
+	// import { page, navigating } from '$app/stores';
 	import { Buffer } from 'buffer';
 
-  import bs58 from "bs58";
- 	import { walletStore } from '@svelte-on-solana/wallet-adapter-core';
-
+	import Placeholder from '../components/Placeholder.svelte';
+	import Footer from '../components/Footer.svelte';
 	import Header from '../components/Header.svelte';
 	import * as api from '../assets/js/api';
 
+	// exports
+	// none
+
+	// consts
+	
+	const IN_MAINTENANCE = false;
+
 	// vars
 
-	let in_maintenance = false;
+	// let in_maintenance = false;
 	let is_active = true;
-	
-	let solana_is_verifying = false;
-	let solana_verified = false;
+	let socket;
+	let caches;
+	let initiated = false;
+
+	// dynamics
+	// none
 
 	// mount
 
 	onMount(async () => {
-		if (browser) {
-			window.Buffer = Buffer;
-		}
+		try {
+			if (browser) {
+				window.Buffer = Buffer;
+			}
 
-		in_maintenance = in_maintenance && $page.url.searchParams.get(`mode`) !== `dev`;
+			// in_maintenance = in_maintenance && $page.url.searchParams.get(`mode`) !== `dev`;
 
-		if (!in_maintenance) {
+			if (IN_MAINTENANCE) {
+				return;
+			}
+
 			if (!is_active) {
 				is_active = true;
 			}
@@ -37,139 +50,92 @@
 			// note: if any `getInitiated()` type function is run here, put `api.checkSesh()` inside some sort of `if (initiated)` condition, to prevent repeatedly reloading page before initilisation
 			// await api.setSocket(socket);
 			// await api.checkSesh();
+			await getCaches();
+
+			if (initiated) {
+				await api.checkSesh();
+			}
+		} catch (e) {
+			console.log(e);
 		}
 	});
 
-	// dynamics
+	onDestroy(() => {
+		try {
+			is_active = false;	
+		} catch (e) {
+			console.log(e);
+		}
+	});
+
+	// jobs
+
+	let jobs = [`get_caches`];
 	
-	$: if($walletStore.connected && !solana_verified && !solana_is_verifying) {
-		signMessage();
-	}
+	async function getCaches() {
+		try {
+			jobs.push(`get_caches`);
+			jobs = jobs;
+			
+			caches = await api.restPost({
+				// socket,
+				url: `init`,
+				payload: {},
+				skip_intiation_check: true
+			}) || null;
 
-	$: if(!$walletStore.connected) {
-		solana_verified = false;
-		solana_is_verifying = false;
-	}
+			if (caches) {
+				initiated = caches.cache;
+			} else {
+				initiated = false;
+			}
 
-	// solana funcs
-
-	const getMessage = async () => {
-		const response = await fetch("/api/solana/message");
-		
-		const { data : message } = await response.json();
-
-		console.log(`Received message to sign: "${message}"`);
-
-		// logs = [
-		// 	...logs,
-		// 	`\n\n\nReceived message to sign: "${message}"`
-		// ];
-
-		return message;
-	}
-
-	const signMessage = async () => {
-		solana_is_verifying = true;
-
-		const message = await getMessage();
-
-		const encodedMessage = new TextEncoder().encode(message);
-
-		if(!$walletStore.signMessage) {
-			// logs = [
-			// 	...logs,
-			// 	`\n\n\nWallet not supported`
-			// ];
-
-			console.log(`Wallet not supported`);
-
-			solana_is_verifying = false;
-
-			return;
+			jobs = jobs.filter(j => j !== `get_caches`);
+		} catch (e) {
+			console.log(e);
 		}
-
-		const signedMessage = await $walletStore?.signMessage(encodedMessage);
-
-		const base58Signature = bs58.encode(signedMessage);
-
-		// logs = [
-		// 	...logs,
-		// 	`\n\n\nPublic Key: ${$walletStore.publicKey?.toBase58()}`
-		// ];
-
-		console.log(`Public Key: ${$walletStore.publicKey?.toBase58()}`);
-
-		// logs = [
-		// 	...logs,
-		// 	`\n\n\nSigned message: ${base58Signature}`
-		// ];
-
-		console.log(`Signed message: ${base58Signature}`);
-
-		if(!signedMessage) {
-			// logs = [
-			// 	...logs,
-			// 	`\n\n\nFailed to sign message`
-			// ];
-
-			console.log(`nFailed to sign message`);
-
-			solana_is_verifying = false;
-
-			return;
-		}
-
-		// logs = [
-		// 	...logs,
-		// 	`\n\n\nVerifying signature...`
-		// ];
-
-		console.log(`Verifying signature...`);
-
-		const response = await fetch(`/api/solana/message/verify`, {
-			method : "POST",
-			body : JSON.stringify({
-				message: message,
-				signature: base58Signature,
-				publicKey: $walletStore.publicKey?.toBase58(),
-			}),
-		});
-
-		if(response.status !== 200) {
-			// logs = [
-			// 	...logs,
-			// 	`\n\n\nSignature verification failed`
-			// ];
-
-			console.log(`Signature verification failed`);
-
-			$walletStore.disconnect();
-
-			solana_is_verifying = false;
-
-			return;
-		}
-
-		// logs = [
-		// 	...logs,
-		// 	`\n\n\nSignature verification success ✅`
-		// ];
-
-		console.log(`Signature verification success ✅`);
-
-		solana_is_verifying = false;
-		solana_verified = true;
 	}
+
+	// funcs
+	// none
 </script>
 
 <div class="container  stretch--  grow--  col--  col-centre--  layout">
-	<Header />
-
-	<slot />
+	{#if IN_MAINTENANCE}
+		<Placeholder
+			is_loading={false}
+			text="In maintenance."
+			colour="red"
+		/>
+	{:else if jobs.includes(`get_caches`)}
+		<Placeholder
+			is_loading={true}
+			text="Loading..."
+			colour="white"
+		/>
+	{:else if !caches}
+		<Placeholder
+			is_loading={false}
+			text="Error loading."
+			colour="red"
+		/>
+	{:else if !caches.cache}
+		<Placeholder
+			is_loading={false}
+			text="Backend loading. Try again in a few minutes."
+			colour="red"
+		/>
+	{:else}
+		<Header />
+		<slot />
+		<Footer />
+	{/if}
 </div>
 
 <style lang="scss">
 	@import '../assets/scss/all.scss';
+
+	// layout
 
 	.layout {
 		font-size: 12px;

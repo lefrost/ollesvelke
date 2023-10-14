@@ -13,8 +13,8 @@ export async function checkSesh() {
 			await setSesh(Date.now() + 60);
 			await setCurrentUser(
 				(
-					await post({
-						socket: await getSocket(),
+					await restPost({
+						// socket: await getSocket(),
 						url: `get`,
 						payload: {
 							type: `user`,
@@ -94,8 +94,8 @@ async function loadCurrentUser(user) {
 			loading_user = true;
 
 			// let current_user_data = await get({ id: user.id, type: `user` });
-			let current_user_data = await post({
-				socket: await getSocket(),
+			let current_user_data = await restPost({
+				// socket: await getSocket(),
 				url: `get`,
 				payload: {
 					type: `user`,
@@ -132,8 +132,8 @@ export async function logout() {
 // ---- user
 
 export async function editUser(data) {
-	let edited_user = await post({
-		socket: await getSocket(),
+	let edited_user = await restPost({
+		// socket: await getSocket(),
 		url: `edit`,
 		payload: { type: `user`, obj: data }
 	});
@@ -148,8 +148,8 @@ export async function editUser(data) {
 		// 	id: current_user.id
 		// });
 
-		let user_data = await post({
-			socket: await getSocket(),
+		let user_data = await restPost({
+			// socket: await getSocket(),
 			url: `get`,
 			payload: { type: `user`, id: current_user.id }
 		});

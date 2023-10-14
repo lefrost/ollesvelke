@@ -24,17 +24,17 @@
 	// none
 </script>
 
-<!-- header -->
-<div class="container  stretch--  row--  row-centre--  text  text-black--  header">
-	<!-- tba: header -->
+<!-- footer -->
+<div class="container  stretch--  row--  row-centre--  text  text-black--  footer">
+	<!-- tba: footer -->
 </div>
 
 <style lang="scss">
 	@import '../assets/scss/all.scss';
 
-	// header
+	// footer
 
-	.header {
+	.footer {
 
 	}
 </style>

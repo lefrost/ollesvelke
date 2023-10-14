@@ -2,9 +2,9 @@
 	// imports
 
 	import { onDestroy, onMount } from 'svelte';
-	import Loader from '../components/Loader.svelte';
-	import Placeholder from '../components/Placeholder.svelte';
-	import * as api from '../assets/js/api';
+	import Loader from '../../components/Loader.svelte';
+	import Placeholder from '../../components/Placeholder.svelte';
+	import * as api from '../../assets/js/api';
 
 	// exports
 	// none
@@ -62,7 +62,7 @@
 			// data = await api.restPost({
 			// 	url: `load`,
 			// 	payload: {
-			// 		type: `landing_main`,
+			// 		type: `sample_main`,
 			// 		obj: {
 			// 			user_id: user ? user.id : ``
 			// 		}
@@ -70,7 +70,7 @@
 			// }) || null;
 			
 			data = `test`;
-
+			
 			if (data) {
 				// tba: data
 			}
@@ -85,9 +85,9 @@
 	// none
 </script>
 
-<!-- landing -->
+<!-- sample -->
 <div
-	class="container  grow--  col--  col-centre--  col-middle--  text  text-black--  landing"
+	class="container  grow--  col--  col-centre--  text  text-black--  sample"
 >
 	{#if IN_MAINTENANCE}
 		<Placeholder
@@ -108,17 +108,16 @@
 			colour="red"
 		/>
 	{:else}
-		Ollesvelke
+		Sample page
 	{/if}
 </div>
 
 <style lang="scss">
-	@import '../assets/scss/all.scss';
+	@import '../../assets/scss/all.scss';
 
-	// landing
+  // sample
 
-	.landing {
-		width: calc(100% - $wrapper-gutter * 2);
-		max-width: 1000px;
+	.sample {
+
 	}
 </style>

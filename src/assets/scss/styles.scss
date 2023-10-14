@@ -64,20 +64,28 @@
 /* --- Visibility --- */
 
 .visibility {
-	display: none !important;
+	&, &.v-inline-- {
+		display: none !important;
+	}
 
 	&.sm-down--,
 	&.md-down--,
 	&.lg-down--,
 	&.xl-down-- {
 		display: flex !important;
+
+		&.v-inline-- {
+			display: inline !important;
+		}
 	}
 }
 
 @media (min-width: $bp-sm) {
 	.visibility {
 		&.sm-down-- {
-			display: none !important;
+			&, &.v-inline-- {
+				display: none !important;
+			}
 		}
 
 		&.sm-up--,
@@ -85,6 +93,10 @@
 		&.lg-down--,
 		&.xl-down-- {
 			display: flex !important;
+
+			&.v-inline-- {
+				display: inline !important;
+			}
 		}
 	}
 }
@@ -92,13 +104,19 @@
 @media (min-width: $bp-md) {
 	.visibility {
 		&.md-down-- {
-			display: none !important;
+			&, &.v-inline-- {
+				display: none !important;
+			}
 		}
 
 		&.md-up--,
 		&.lg-down--,
 		&.xl-down-- {
 			display: flex !important;
+
+			&.v-inline-- {
+				display: inline !important;
+			}
 		}
 	}
 }
@@ -106,12 +124,18 @@
 @media (min-width: $bp-lg) {
 	.visibility {
 		&.lg-down-- {
-			display: none !important;
+			&, &.v-inline-- {
+				display: none !important;
+			}
 		}
 
 		&.lg-up--,
 		&.xl-down-- {
 			display: flex !important;
+
+			&.v-inline-- {
+				display: inline !important;
+			}
 		}
 	}
 }
@@ -119,11 +143,17 @@
 @media (min-width: $bp-xl) {
 	.visibility {
 		&.xl-down-- {
-			display: none !important;
+			&, &.v-inline-- {
+				display: none !important;
+			}
 		}
 
 		&.xl-up--{
 			display: flex !important;
+
+			&.v-inline-- {
+				display: inline !important;
+			}
 		}
 	}
 }
@@ -269,8 +299,28 @@
 		--text-colour: #{$black};
 	}
 
+	&.text-blue-- {
+		--text-colour: #{$blue};
+	}
+
+	&.text-green-- {
+		--text-colour: #{$green};
+	}
+
+	&.text-orange-- {
+		--text-colour: #{$orange};
+	}
+
+	&.text-red-- {
+		--text-colour: #{$red};
+	}
+
 	&.text-white-- {
 		--text-colour: #{$white};
+	}
+
+	&.text-yellow-- {
+		--text-colour: #{$yellow};
 	}
 }
 
@@ -325,10 +375,46 @@
 
 	// colour
 
+	&.black-- {
+		--bg-1: #{$black};
+		--bg-2: #{$black};
+		--bd: #{$black};
+	}
+
+	&.blue-- {
+		--bg-1: #{$blue};
+		--bg-2: #{$blue};
+		--bd-: #{$blue};
+	}
+
+	&.green-- {
+		--bg-1: #{$green};
+		--bg-2: #{$green};
+		--bd: #{$green};
+	}
+
+	&.orange-- {
+		--bg-1: #{$orange};
+		--bg-2: #{$orange};
+		--bd: #{$orange};
+	}
+
+	&.red-- {
+		--bg-1: #{$red};
+		--bg-2: #{$red};
+		--bd: #{$red};
+	}
+
 	&.white-- {
 		--bg-1: #{$white};
 		--bg-2: #{$white};
 		--bd: #{$white};
+	}
+
+	&.yellow-- {
+		--bg-1: #{$yellow};
+		--bg-2: #{$yellow};
+		--bd: #{$yellow};
 	}
 }
 

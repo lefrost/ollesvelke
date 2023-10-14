@@ -1,10 +1,11 @@
 <script lang="ts">
 	// imports
-
 	import { onDestroy, onMount } from 'svelte';
-	import Loader from '../components/Loader.svelte';
-	import Placeholder from '../components/Placeholder.svelte';
-	import * as api from '../assets/js/api';
+	import ConnectButton from '../../components/ConnectButton.svelte';
+	import Loader from '../../components/Loader.svelte';
+	import Placeholder from '../../components/Placeholder.svelte';
+	import * as api from '../../assets/js/api';
+	import { goto } from '$app/navigation';
 
 	// exports
 	// none
@@ -57,25 +58,31 @@
 
 			if (!(user && user.id)) {
 				user = null;
+        
+				jobs = jobs.filter(j => j !== `get_data`);
+				
+				goto('/login');
+			} else {
+				// data = await api.restPost({
+				// 	url: `load`,
+				// 	payload: {
+				// 		type: `login_main`,
+				// 		obj: {
+				// 			user_id: user ? user.id : ``
+				// 		}
+				// 	}
+				// }) || null;
+				
+				data = `test`;
+				
+				if (data) {
+					// tba: data
+				}
+        
+				jobs = jobs.filter(j => j !== `get_data`);
 			}
 
-			// data = await api.restPost({
-			// 	url: `load`,
-			// 	payload: {
-			// 		type: `landing_main`,
-			// 		obj: {
-			// 			user_id: user ? user.id : ``
-			// 		}
-			// 	}
-			// }) || null;
 			
-			data = `test`;
-
-			if (data) {
-				// tba: data
-			}
-
-			jobs = jobs.filter(j => j !== `get_data`);
 		} catch (e) {
 			console.log(e);
 		}
@@ -85,10 +92,8 @@
 	// none
 </script>
 
-<!-- landing -->
-<div
-	class="container  grow--  col--  col-centre--  col-middle--  text  text-black--  landing"
->
+<!-- settings -->
+<div class="container  stretch--  col--  col-centre--  text  text-black--  settings">
 	{#if IN_MAINTENANCE}
 		<Placeholder
 			is_loading={false}
@@ -101,6 +106,12 @@
 			text="Loading..."
 			colour="white"
 		/>
+	{:else if !user}
+		<Placeholder
+			is_loading={true}
+			text="Redirecting..."
+			colour="white"
+		/>
 	{:else if !data}
 		<Placeholder
 			is_loading={false}
@@ -108,17 +119,16 @@
 			colour="red"
 		/>
 	{:else}
-		Ollesvelke
+    <!-- tba -->
 	{/if}
 </div>
 
 <style lang="scss">
-	@import '../assets/scss/all.scss';
+	@import '../../assets/scss/all.scss';
 
-	// landing
+	// settings
 
-	.landing {
-		width: calc(100% - $wrapper-gutter * 2);
-		max-width: 1000px;
+	.settings {
+
 	}
 </style>
