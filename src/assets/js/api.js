@@ -7,14 +7,13 @@ const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
 const API_KEY = import.meta.env.VITE_API_KEY;
 
 export async function checkSesh() {
-	let sesh = await getSesh();
+	let sesh_val = Number(await getSesh()) || 0;
 	if (!utils.isEmptyObj(await getCurrentUser())) {
-		if (sesh === `null` || Date.now() + 60 >= Number(sesh)) {
-			await setSesh(Date.now() + 60);
+		if (utils.getTimestamp() < utils.alterTimestamp(`add`, 10, `minutes`, sesh_val)) {
+			sesh.set(utils.getTimestamp().toString());
 			await setCurrentUser(
 				(
 					await restPost({
-						// socket: await getSocket(),
 						url: `get`,
 						payload: {
 							type: `user`,
@@ -25,6 +24,9 @@ export async function checkSesh() {
 				).data,
 				false
 			);
+		} else {
+			await utils.wait(0.1);
+			await logout();
 		}
 	}
 }
@@ -61,9 +63,9 @@ export async function getSesh() {
 	});
 }
 
-export async function setSesh(val) {
-	sesh.set(val);
-}
+// export async function setSesh(val) {
+// 	sesh.set(val);
+// }
 
 export async function getPageCode() {
 	return new Promise((resolve, reject) => {
@@ -117,6 +119,7 @@ async function loadCurrentUser(user) {
 }
 
 export function setCurrentUser(new_user, reload) {
+	sesh.set(utils.getTimestamp().toString());
 	user.set(JSON.stringify(new_user));
 
 	if (reload) {
@@ -125,6 +128,7 @@ export function setCurrentUser(new_user, reload) {
 }
 
 export async function logout() {
+	sesh.set(null);
 	user.set(null);
 	location.reload();
 }
