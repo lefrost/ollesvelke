@@ -9,7 +9,7 @@ const API_KEY = import.meta.env.VITE_API_KEY;
 export async function checkSesh() {
 	let sesh_val = Number(await getSesh()) || 0;
 	if (!utils.isEmptyObj(await getCurrentUser())) {
-		if (utils.getTimestamp() < utils.alterTimestamp(`add`, 10, `minutes`, sesh_val)) {
+		if (utils.getTimestamp() < utils.alterTimestamp(`add`, 60, `minutes`, sesh_val)) {
 			sesh.set(utils.getTimestamp().toString());
 			await setCurrentUser(
 				(
