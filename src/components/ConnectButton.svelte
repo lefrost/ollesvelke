@@ -50,7 +50,8 @@
 	export let is_processing = false;
   export let platform = `solana`; // discord, solana
   export let type = `login`; // add, login
-  export let text = `Connect wallet`;
+  export let text = `Solana wallet`;
+	export let font_size_em = 1;
 
   // solana vars
   
@@ -147,7 +148,10 @@
 
 {#if platform === `discord`}
   <!-- connect (discord) -->
-  <a href={(type === `add`) ? DISCORD_ADD_ENDPOINT : DISCORD_LOGIN_ENDPOINT} class="container  row--  row-centre--  text  text-black--  card  white--  connect">
+  <a
+		href={(type === `add`) ? DISCORD_ADD_ENDPOINT : DISCORD_LOGIN_ENDPOINT} class="container  row--  row-centre--  text  text-white--  card  white--  connect"
+		style="font-size: {font_size_em}em;"
+	>
     <div>
       {(type === `add`) ? `Add Discord account` : `Discord account`}
     </div>
@@ -155,8 +159,9 @@
 {:else if platform === `solana`}
 	<!-- connect (solana) -->
   <div
-		class="container  row--  row-centre--  text  text-black--  card  white--  connect"
+		class="container  row--  row-centre--  text  text-white--  card  white--  connect"
 		class:disabled={is_processing}
+		style="font-size: {font_size_em}em;"
 	>
     <WalletMultiButton>
       {@html text || `Solana wallet`}
@@ -169,40 +174,42 @@
 
   // connect
 
-  .connect {
+  .connect.card {
+		--bg-a1: 0.05;
+		--bg-a2: 0.05;
+		opacity: 0.8;
+		padding: 0.8em 1.4em;
+		@include clickable;
+		z-index: 2;
+
+		&:hover {
+			opacity: 1;
+		}
+		
+		> div {
+			font-size: 1.3em;
+		}
+
 		> :global(.wallet-adapter-button) {
-			&:hover {
-			}
+			all: unset;
+			font-size: 1.3em;
+			display: flex;
 		}
 
-		> :global(.wallet-adapter-modal) {
+		> :global(.wallet-adapter-button .wallet-adapter-button-start-icon) {
+			// display: none;
+			margin-top: -0.1em;
 		}
 
-		> :global(.wallet-adapter-modal .wallet-adapter-modal-container) {
+		> :global(.wallet-adapter-dropdown .wallet-adapter-button) {
+			all: unset;
+			font-size: 1.3em;
+			display: flex;
 		}
 
-		> :global(.wallet-adapter-modal .wallet-adapter-modal-wrapper) {
-		}
-
-		> :global(.wallet-adapter-modal .wallet-adapter-modal-button-close) {
-		}
-
-		> :global(.wallet-adapter-modal .wallet-adapter-modal-title) {
-		}
-
-		> :global(.wallet-adapter-modal .wallet-adapter-modal-list) {
-		}
-
-		> :global(.wallet-adapter-modal .wallet-adapter-button) {
-		}
-
-		> :global(.wallet-adapter-modal .wallet-adapter-button > span) {
-		}
-
-		> :global(.wallet-adapter-modal .wallet-adapter-button-start-icon > img) {
-		}
-
-		> :global(.wallet-adapter-modal .wallet-adapter-modal-list-more) {
+		> :global(.wallet-adapter-dropdown .wallet-adapter-button-start-icon) {
+			// display: none;
+			margin-top: -0.1em;
 		}
   }
 </style>
