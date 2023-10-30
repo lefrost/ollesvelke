@@ -30,6 +30,14 @@ export function squeezeWebsiteName(url, hasSuffix) {
 	return url.substring(url.indexOf(searchFor) + searchFor.length, endingIndex);
 }
 
+export function sanitiseString (str) {
+	try {
+		return (str || ``).trim().toLowerCase().replaceAll(` `, ``);
+	} catch (e) {
+		console.log(e);
+	}
+}
+
 export function urlifyString(str) {
 	return str.replaceAll(`&`, `[ampersand]`).replaceAll(`#`, `[hash]`);
 }
