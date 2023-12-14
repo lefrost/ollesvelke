@@ -561,7 +561,7 @@ export function getWeightedRandom(d) {
 
 		for (let i = 0; i < arr.length; i++) {
 			sum += arr[i][rarity_prop];
-			if (r <= sum) return arr[i];
+			if (r <= sum) return (value_prop ? arr[i][value_prop] : arr[i]);
 		}
 
 		return value_prop ? arr[0][value_prop] : arr[0];
