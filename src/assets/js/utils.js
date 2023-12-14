@@ -564,7 +564,7 @@ export function getWeightedRandom(d) {
 			if (r <= sum) return arr[i];
 		}
 
-		return value_prop ? arr[0] : arr[0][value_prop];
+		return value_prop ? arr[0][value_prop] : arr[0];
 	} catch (e) {
 		console.log(e);
 		return null;
