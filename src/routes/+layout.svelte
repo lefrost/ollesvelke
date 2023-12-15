@@ -1,4 +1,9 @@
 <script lang="ts">
+	// note: getting `Could not install @sveltejs/adapter-vercel` issue when deploying to vercel?
+	// - install to devDependencies: sveltejs/adapter-vercel@1.0.2
+	// - https://github.com/sveltejs/kit/issues/8530#issuecomment-1383015259
+	// - updated as of dec 2023
+	
 	// imports
 
 	import { onDestroy, onMount } from 'svelte';
