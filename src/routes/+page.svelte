@@ -1,6 +1,8 @@
 <script lang="ts">
 	// imports
 
+	// tba: ready-made <Connect /> (replaces outdated <ConnectButton />) and <Input /> components
+
 	import { onDestroy, onMount } from 'svelte';
 	import Loader from '../components/Loader.svelte';
 	import Placeholder from '../components/Placeholder.svelte';
