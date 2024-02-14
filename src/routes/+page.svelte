@@ -74,7 +74,7 @@
 			data = `test`;
 
 			if (data) {
-				// tba: data
+				// todo: data
 			}
 
 			jobs = jobs.filter(j => j !== `get_data`);

@@ -29,7 +29,7 @@
 
 <!-- footer -->
 <div class="container  stretch--  row--  row-centre--  text  text-black--  footer">
-	<!-- tba: footer -->
+	<!-- todo: footer -->
 </div>
 
 <style lang="scss">
