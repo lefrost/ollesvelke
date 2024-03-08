@@ -214,7 +214,6 @@ async function ioPost(d) {
 			d.url,
 			{
 				...d.payload,
-				api_key: API_KEY
 			},
 			(r) => {
 				resolve(d.all ? r : r.data);
@@ -240,13 +239,14 @@ async function bePost(d) {
 		method: `POST`,
 		headers: {
 			Accept: `application/json`,
-			'Content-Type': `application/json`
+			'Content-Type': `application/json`,
+			'x_api_key': API_KEY
 		}
 	};
 
-	// if (!utils.isEmptyObj(d.payload)) {
-	config.body = JSON.stringify({ ...(d.payload || {}), api_key: API_KEY });
-	// }
+	config.body = JSON.stringify({
+		...(d.payload || {}),
+	});
 
 	try {
 		let res = JSON.parse(await (await fetch(`${API_ENDPOINT}${d.url}`, config)).text());

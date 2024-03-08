@@ -15,6 +15,7 @@
 	import Footer from '../components/Footer.svelte';
 	import Header from '../components/Header.svelte';
 	import * as api from '../assets/js/api';
+	// import io from 'socket.io-client';
 
 	// exports
 	// none
@@ -23,11 +24,17 @@
 	
 	const IN_MAINTENANCE = false;
 
+	// const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
+	// const socket = io(API_ENDPOINT, {
+	// 	extraHeaders: {
+	// 		api_key: import.meta.env.VITE_API_KEY
+	// 	}
+	// });
+	
 	// vars
 
 	// let in_maintenance = false;
 	let is_active = true;
-	let socket;
 	let caches;
 	let initiated = false;
 
