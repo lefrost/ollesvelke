@@ -27,7 +27,7 @@
 	// const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
 	// const socket = io(API_ENDPOINT, {
 	// 	extraHeaders: {
-	// 		api_key: import.meta.env.VITE_API_KEY
+	// 		x_api_key: import.meta.env.VITE_API_KEY
 	// 	}
 	// });
 	
