@@ -8,7 +8,7 @@
 </script>
 
 <!-- placeholder -->
-<div class="container  row--  row-left--  text-{colour}--  card  {colour}--  placeholder  {styles.map((s) => `${s}--`).join(` `)}">
+<div class="container  row--  row-left--  text  text-{colour}--  card  {colour}--  placeholder  {styles.map((s) => `${s}--`).join(` `)}">
   {#if is_loading}
     <!-- loader -->
     <Loader font_size={1} />
