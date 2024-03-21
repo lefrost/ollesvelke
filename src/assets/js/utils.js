@@ -576,14 +576,29 @@ export function removeAccents(str) {
 	return str.normalize(`NFD`).replace(/\p{Diacritic}/gu, ``);
 }
 
+export function getSubstringOccurrenceCount(d) {
+	try {
+		return (d.string || ``).split(d.substring || ``).length - 1;
+	} catch (e) {
+		console.log(e);
+		return 0;
+	}
+}
+
 export function compressImage(d) {
 	try {
 		let image_url = d.image_url || ``;
 		let width = d.width || 0;
 		let height = d.height || width;
 	
-		// return `https://img-cdn.magiceden.dev/rs:fill:${width}:${height}:0:0/plain/${image_url}`;
-		return `https://wsrv.nl/?url=${image_url}&w=${width}&h=${height}`;
+		if (getSubstringOccurrenceCount({
+			string: image_url,
+			substring: `http`
+		}) <= 1) {
+			return `https://wsrv.nl/?url=${image_url}&w=${width}&h=${height}`;
+		} else {
+			return image_url;
+		}
 	} catch (e) {
 		console.log(e);
 		return null;
