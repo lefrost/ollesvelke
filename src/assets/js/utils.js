@@ -583,7 +583,7 @@ export function compressImage(d) {
 		let height = d.height || width;
 	
 		// return `https://img-cdn.magiceden.dev/rs:fill:${width}:${height}:0:0/plain/${image_url}`;
-		return `https://wsrv.nl/?url=wsrv.nl/${image_url}&w=${width}&h=${height}`;
+		return `https://wsrv.nl/?url=${image_url}&w=${width}&h=${height}`;
 	} catch (e) {
 		console.log(e);
 		return null;
