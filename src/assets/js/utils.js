@@ -2,6 +2,8 @@ import moment from 'moment';
 import moment_tz from 'moment-timezone';
 import _ from 'lodash';
 
+const FALLBACK_USER_IMAGE = import.meta.env.VITE_FALLBACK_USER_IMAGE;
+
 // export function formatNumber(num) {
 // 	return numeral(num).format('0a');
 // }
@@ -590,6 +592,10 @@ export function compressImage(d) {
 		let image_url = d.image_url || ``;
 		let width = d.width || 0;
 		let height = d.height || width;
+		
+		if (image_url === FALLBACK_USER_IMAGE) {
+			return image_url;
+		}
 	
 		if (getSubstringOccurrenceCount({
 			string: image_url,
