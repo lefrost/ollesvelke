@@ -1,8 +1,20 @@
 <script lang="ts">
-	// note: getting `Could not install @sveltejs/adapter-vercel` issue when deploying to vercel?
-	// - if not already, install to devDependencies: sveltejs/adapter-vercel@1.0.2
-	// - https://github.com/sveltejs/kit/issues/8530#issuecomment-1383015259
-	// - updated as of dec 2023
+	/*
+		note: getting `Could not install @sveltejs/adapter-vercel` issue when deploying to vercel?
+		- if not already, install to devDependencies: sveltejs/adapter-vercel@1.0.2
+		- https://github.com/sveltejs/kit/issues/8530#issuecomment-1383015259
+		- updated as of dec 2023
+	*/
+
+	/*
+		note: migrating from sveltekit 1 to 2
+		- rm -r node_modules
+		- migrate from svelte 3 to 4: https://svelte.dev/docs/v4-migration-guide
+		- migrate from eslint-plugin-svelte3 to eslint-plugin-svelte: https://github.com/sveltejs/kit/issues/10242#issuecomment-1610798405 (use --force if needed)
+		- migrate from sveltekit 1 to 2: https://kit.svelte.dev/docs/migrating-to-sveltekit-2
+		- if you have @sveltejs/adapter-vercel devDependency in package.json, remove it from package.json, and do npm i @sveltejs/adapter-auto (use --force if needed)
+		- npm i, npm run dev
+	*/
 	
 	// imports
 
