@@ -19,6 +19,10 @@ export default defineConfig(({ mode }) => {
 			port: 3000
 		},
 
+		// define process.env here to fix dependencies not using import.meta.env instead of deprecated process.env --- based on this fix: https://github.com/vitejs/vite/issues/1973#issuecomment-787571499
+		define: {
+			'process.env': {}
+		},
 
 		build : {
 			target: "es2020",
@@ -31,11 +35,12 @@ export default defineConfig(({ mode }) => {
 		},
 		
 		// Important for wallet adapter to work.
-		resolve: {
-			alias: {
-				path: 'path-browserify',
-			},
-		},
+		// update: not required? solana wallet adapter still works when commented out.
+		// resolve: {
+		// 	alias: {
+		// 		path: 'path-browserify',
+		// 	},
+		// },
 
 		optimizeDeps: {
 			esbuildOptions: {
