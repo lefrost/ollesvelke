@@ -35,7 +35,7 @@ export default defineConfig(({ mode }) => {
 		},
 		
 		// Important for wallet adapter to work.
-		// update: not required? solana wallet adapter still works when commented out.
+		// update: not required? solana wallet adapter still works when commented out. when activated and wallet adapter is used in code, it actually causes error 500.
 		// resolve: {
 		// 	alias: {
 		// 		path: 'path-browserify',
