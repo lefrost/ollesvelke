@@ -194,18 +194,20 @@
 }
 
 @mixin hover-forward($scale) {
-	&:hover {
+	&:not(.no-hover--):hover {
 		transform: scale(#{$scale});
 	}
 }
 
 @mixin hover-up($em) {
-	position: relative;
-	top: 0;
-
-	&:hover {
-		top: $em;
-		filter: saturate(90%);
+	&:not(.no-hover--) {
+		position: relative;
+		top: 0;
+	
+		&:hover {
+			top: $em;
+			filter: saturate(90%);
+		}
 	}
 }
 
