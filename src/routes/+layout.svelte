@@ -14,6 +14,7 @@
 		- migrate from sveltekit 1 to 2: https://kit.svelte.dev/docs/migrating-to-sveltekit-2
 		- if you have @sveltejs/adapter-vercel devDependency in package.json, remove it from package.json, and do npm i @sveltejs/adapter-auto (use --force if needed)
 		- npm i, npm run dev
+		- updated as of may 2024
 	*/
 	
 	// imports
