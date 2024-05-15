@@ -15,6 +15,7 @@
 		- if you have @sveltejs/adapter-vercel devDependency in package.json, remove it from package.json, and do npm i @sveltejs/adapter-auto (use --force if needed)
 		- make sure to update `svelte.config.js`, `vite.config.js`, `package.json`, and `app.html` to be consistent with the ollesvelke version
 		- npm i, npm run dev
+		- when deploying to vercel, make sure project's node version is 20.x or higher
 		- updated as of may 2024
 	*/
 	
