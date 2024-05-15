@@ -13,6 +13,7 @@
 		- migrate from eslint-plugin-svelte3 to eslint-plugin-svelte: https://github.com/sveltejs/kit/issues/10242#issuecomment-1610798405 (use --force if needed)
 		- migrate from sveltekit 1 to 2: https://kit.svelte.dev/docs/migrating-to-sveltekit-2
 		- if you have @sveltejs/adapter-vercel devDependency in package.json, remove it from package.json, and do npm i @sveltejs/adapter-auto (use --force if needed)
+		- make sure to update `svelte.config.js`, `vite.config.js`, `package.json`, and `app.html` to be consistent with the ollesvelke version
 		- npm i, npm run dev
 		- updated as of may 2024
 	*/
