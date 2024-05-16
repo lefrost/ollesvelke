@@ -218,6 +218,12 @@
 @mixin card-border($width, $colour, $alpha) {
 	border: $width solid rgba($colour, $alpha);
 }
+@mixin card-fill($color) {
+	--bg-a1: 0.95;
+	--bg-a2: 0.95;
+	--bg-1: #{$color} !important;
+	--bg-2: #{$color} !important;
+}
 
 // text
 
