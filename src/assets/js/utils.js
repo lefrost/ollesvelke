@@ -4,9 +4,14 @@ import _ from 'lodash';
 
 const FALLBACK_USER_IMAGE = import.meta.env.VITE_FALLBACK_USER_IMAGE;
 
-// export function formatNumber(num) {
-// 	return numeral(num).format('0a');
-// }
+export function formatNumber(num) {
+	try {
+		return _.comma(num);
+	} catch (e) {
+		console.log(e);
+		return 0;
+	}
+}
 
 // https://stackoverflow.com/a/38340730/8919391
 export function removeEmptyArrays(obj) {
