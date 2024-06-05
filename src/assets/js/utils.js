@@ -405,7 +405,12 @@ export function isBetween(x, min, max) {
 }
 
 export function clone(obj) {
-	return JSON.parse(JSON.stringify(obj));
+	try {
+		return JSON.parse(JSON.stringify(obj));	
+	} catch (e) {
+		console.log(e);
+		return null;
+	}
 }
 
 // export function clone(obj) {
