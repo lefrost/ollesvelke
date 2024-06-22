@@ -138,89 +138,116 @@
 			colour="red"
 		/>
 	{:else}
-		<!-- button (discord) -->
+		<!-- button (google) -->
 		<ConnectButton
-			platform="discord"
+			platform="google"
 			type="login"
-		/>
-
-		<!-- button (solana) -->
-		<ConnectButton
-			platform="solana"
-			type="login"
-			is_processing={jobs.includes(`login`)}
 			on:connect={async (connect_data) => {
-				if (!jobs.includes(`login`)) {
-					jobs.push(`login`);
-					jobs = jobs;
+				try {
+					if (!jobs.includes(`login`)) {
+						jobs.push(`login`);
+						jobs = jobs;
 
-					login_solana_text = `Solana wallet.`;
+						console.log(connect_data);
+						// tba: handle google login
 
-					let address = connect_data.detail;
-
-					if (address !== null && address.length > 0) {
-						login_solana_text = `Logging in...`;
-
-						let matching_user = await api.restPost({
-							url: `get`,
-							payload: {
-								type: `user`,
-								filters: [
-									{
-										prop: `connections`,
-										value: {
-											type: `solana`,
-											code: address
-										},
-										condition: `some`,
-										options: []
-									}
-								]
-							}
-						});
-
-						await getCaches();
-
-						if (!caches.cache) {
-							login_solana_text = `Backend initiating, try again later.`;
-						} else if (!utils.isEmptyObj(matching_user)) {
-							login_solana_text = `Logging in...`;
-							api.setCurrentUser(matching_user, true);
-						} else {
-							login_solana_text = `Creating new account...`;
-
-							let new_user = await api.restPost({
-								url: `add`,
-								payload: {
-									type: `user`,
-									obj: {
-										code: `${address.substring(0, 8)}${utils.getRandomNumber(1, 1000)}`,
-										name: address.substring(0, 8),
-										connections: [
-											{
-												type: `solana`,
-												code: address,
-												name: utils.formatAddress(address)
-											}
-										]
-									}
-								}
-							});
-
-							if (!utils.isEmptyObj(new_user)) {
-								api.setCurrentUser(new_user, true);
-							} else {
-								login_solana_text = `Connected interrupted, try again.`;
-							}
-						}
-					} else {
-						login_solana_text = `Connected interrupted, try again.`;
+						jobs = jobs.filter(j => j !== `login`);
 					}
-
-					jobs = jobs.filter(j => j !== `login`);
+				} catch (e) {
+					console.log(e);
 				}
 			}}
 		/>
+
+		{#if false}
+			<!-- button (discord) -->
+			<ConnectButton
+				platform="discord"
+				type="login"
+			/>
+
+			<!-- button (solana) -->
+			<ConnectButton
+				platform="solana"
+				type="login"
+				is_processing={jobs.includes(`login`)}
+				on:connect={async (connect_data) => {
+					try {
+						if (!jobs.includes(`login`)) {
+							jobs.push(`login`);
+							jobs = jobs;
+
+							login_solana_text = `Solana wallet.`;
+
+							let address = connect_data.detail;
+
+							if (address !== null && address.length > 0) {
+								login_solana_text = `Logging in...`;
+
+								let matching_user = await api.restPost({
+									url: `get`,
+									payload: {
+										type: `user`,
+										filters: [
+											{
+												prop: `connections`,
+												value: {
+													type: `solana`,
+													code: address
+												},
+												condition: `some`,
+												options: []
+											}
+										]
+									}
+								});
+
+								await getCaches();
+
+								if (!caches.cache) {
+									login_solana_text = `Backend initiating, try again later.`;
+								} else if (!utils.isEmptyObj(matching_user)) {
+									login_solana_text = `Logging in...`;
+									api.setCurrentUser(matching_user, true);
+								} else {
+									login_solana_text = `Creating new account...`;
+
+									let new_user = await api.restPost({
+										url: `add`,
+										payload: {
+											type: `user`,
+											obj: {
+												code: `${address.substring(0, 8)}${utils.getRandomNumber(1, 1000)}`,
+												name: address.substring(0, 8),
+												connections: [
+													{
+														type: `solana`,
+														code: address,
+														name: utils.formatAddress(address)
+													}
+												]
+											}
+										}
+									});
+
+									if (!utils.isEmptyObj(new_user)) {
+										api.setCurrentUser(new_user, true);
+									} else {
+										login_solana_text = `Connected interrupted, try again.`;
+									}
+								}
+							} else {
+								login_solana_text = `Connected interrupted, try again.`;
+							}
+
+							jobs = jobs.filter(j => j !== `login`);
+						}
+					} catch (e) {
+						console.log(e);
+					}
+				}}
+			/>
+		{/if}
 	{/if}
 </div>
 

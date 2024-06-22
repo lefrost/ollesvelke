@@ -35,6 +35,11 @@ theme.subscribe((val) => {
 	if (browser) return (localStorage.theme = val);
 });
 
+export const is_google_processing = writable((browser && localStorage.getItem('is_google_processing')) || false);
+is_google_processing.subscribe((val) => {
+	if (browser) return (localStorage.is_google_processing = val);
+});
+
 // ----
 
 // https://stackoverflow.com/a/60921566/8919391

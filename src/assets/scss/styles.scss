@@ -21,8 +21,8 @@
 	flex-direction: column;
 	flex-grow: 1;
 	position: relative;
-	background-color: $white-hex;
-	color: $black-hex;
+	background-color: $black-hex;
+	color: $white-hex;
 }
 
 :global(a) {
@@ -47,7 +47,7 @@
 
 /* Track */
 :global(::-webkit-scrollbar-track) {
-	background: $black-hex;
+	background: $white-hex;
 }
 
 /* Handle */

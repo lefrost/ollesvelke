@@ -37,6 +37,7 @@
 		"@svelte-on-solana/wallet-adapter-ui": "^1.0.21-alpha.0",
 		"@sveltejs/adapter-auto": "^3.2.0",
 		"buffer": "^6.0.3",
+		"jwt-decode": "^4.0.0",
 		"moment": "^2.29.4",
 		"moment-timezone": "^0.5.39",
 		"sass": "^1.49.0",

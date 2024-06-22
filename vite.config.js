@@ -21,7 +21,7 @@ export default defineConfig(({ mode }) => {
 
 		// define process.env here to fix dependencies not using import.meta.env instead of deprecated process.env --- based on this fix: https://github.com/vitejs/vite/issues/1973#issuecomment-787571499
 		define: {
-			'process.env': {}
+			'process.env': {},
 		},
 
 		build : {

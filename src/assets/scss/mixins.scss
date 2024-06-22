@@ -4,6 +4,7 @@
 
 @mixin clickable {
 	// cursor: url('/images/commons/cursors/hover.png'), pointer;
+	cursor: pointer;
 }
 
 @mixin background {
