@@ -142,21 +142,6 @@
 		<ConnectButton
 			platform="google"
 			type="login"
-			on:connect={async (connect_data) => {
-				try {
-					if (!jobs.includes(`login`)) {
-						jobs.push(`login`);
-						jobs = jobs;
-
-						console.log(connect_data);
-						// tba: handle google login
-
-						jobs = jobs.filter(j => j !== `login`);
-					}
-				} catch (e) {
-					console.log(e);
-				}
-			}}
 		/>
 
 		{#if false}

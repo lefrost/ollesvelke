@@ -1,7 +1,7 @@
 <script lang="ts">
 	// imports
 
-	// tba: ready-made <Connect /> (replaces outdated <ConnectButton />) and <Input /> components
+	// tba: ready-made <Connect /> (replaces outdated <ConnectButton />, see Connect.svelte in ascend repo for latest reference) and <Input /> components
 
 	import { onDestroy, onMount } from 'svelte';
 	import Loader from '../components/Loader.svelte';

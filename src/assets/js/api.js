@@ -133,40 +133,6 @@ export async function logout() {
 	location.reload();
 }
 
-// ---- user
-
-export async function editUser(data) {
-	let edited_user = await restPost({
-		// socket: await getSocket(),
-		url: `edit`,
-		payload: { type: `user`, obj: data }
-	});
-	let current_user = await getCurrentUser();
-
-	// if the user is editing their own profile, refresh the user
-	if (!utils.isEmptyObj(current_user) && current_user.id === current_user.id) {
-		await utils.wait(0.5);
-
-		// let user_data = await get({
-		// 	type: `user`,
-		// 	id: current_user.id
-		// });
-
-		let user_data = await restPost({
-			// socket: await getSocket(),
-			url: `get`,
-			payload: { type: `user`, id: current_user.id }
-		});
-
-		if (!utils.isEmptyObj(user_data) && user_data.res === `ok`) {
-			setCurrentUser(user_data.data, false);
-			// user.set(JSON.stringify(await getUser({ id: data.id })));
-		}
-	}
-
-	return edited_user;
-}
-
 // ---- routes
 
 export async function restPost(d) {

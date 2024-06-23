@@ -174,6 +174,8 @@
     </div>
   </a>
 {:else if platform === `google`}
+	<!-- tba: change google login button to a link with a GOOGLE_LOGIN_ENDPOINT url instead, similar to the discord add/login button, whereby the url is derived from samples of other sites' google login url format --- this allows the proper styling of this button -->
+
 	<!-- connect (google) -->
 	<div
 		id="g_id_onload"

@@ -10,10 +10,10 @@ export const actions: Actions = {
     var obj = {};
     form_data.forEach((value, key) => obj[key] = value);
 
-    let google_user = jwtDecode(obj[`credential`]); // todo: signup/login google_user to user database in api
+    let google_user = jwtDecode(obj[`credential`]); // tba: signup/login google_user to user database in api --- call `adhoc->addUser()`, in which backend functions can be executed, such as uploading user's icon image to google cloud, retrieving the resulting image url, and setting that image url in mongo
 
-    await utils.wait(2); // todo: remove temp wait function
+    await utils.wait(2); // tba: remove temp wait function
 
-    throw redirect(302, '/'); // todo: redirect to new `/account` page
+    throw redirect(302, '/'); // tba: redirect to new `/account` page
   }
 }

@@ -55,6 +55,7 @@
 						if (!utils.isEmptyObj(matching_user)) {
 							api.setCurrentUser(matching_user, true);
 						} else {
+							// tba: instead of calling `add(user)`, call `adhoc->addUser()`, in which backend functions can be executed, such as uploading user's icon image to google cloud, retrieving the resulting image url, and setting that image url in mongo
 							let new_user = await api.restPost({
 								url: `add`,
 								payload: {
