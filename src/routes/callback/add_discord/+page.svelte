@@ -55,7 +55,7 @@
 						if (!utils.isEmptyObj(matching_user)) {
 							error = `this discord account is already connected with another user.`;
 						} else {
-							// tba: instead of calling `edit(user)`, call `adhoc->editUser()`, in which backend functions can be executed, such as uploading user's icon image to google cloud, retrieving the resulting image url, and setting that image url in mongo
+							// tba (misc): instead of calling `edit(user)`, call `adhoc->editUser()`, in which backend functions can be executed, such as uploading user's icon image to google cloud, retrieving the resulting image url, and setting that image url in mongo
 							let updated_user = await api.restPost({
 								url: `edit`,
 								payload: {

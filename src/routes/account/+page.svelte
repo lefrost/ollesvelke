@@ -1,12 +1,10 @@
 <script lang="ts">
 	// imports
 
-	// tba (misc): ready-made <Connect /> (replaces outdated <ConnectButton />, see Connect.svelte in ascend repo for latest reference) and <Input /> components
-
 	import { onDestroy, onMount } from 'svelte';
-	import Loader from '../components/Loader.svelte';
-	import Placeholder from '../components/Placeholder.svelte';
-	import * as api from '../assets/js/api';
+	import Loader from '../../components/Loader.svelte';
+	import Placeholder from '../../components/Placeholder.svelte';
+	import * as api from '../../assets/js/api';
 
 	// exports
 	// none
@@ -64,7 +62,7 @@
 			// data = await api.restPost({
 			// 	url: `load`,
 			// 	payload: {
-			// 		type: `landing_main`,
+			// 		type: `account_main`,
 			// 		obj: {
 			// 			user_id: user ? user.id : ``
 			// 		}
@@ -72,7 +70,7 @@
 			// }) || null;
 			
 			data = `test`;
-
+			
 			if (data) {
 				// todo: data
 			}
@@ -90,9 +88,9 @@
 	// none
 </script>
 
-<!-- landing -->
+<!-- account -->
 <div
-	class="container  grow--  col--  col-centre--  col-middle--  text  text-white--  landing"
+	class="container  grow--  col--  col-centre--  text  text-white--  account"
 >
 	{#if IN_MAINTENANCE}
 		<Placeholder
@@ -113,17 +111,52 @@
 			colour="red"
 		/>
 	{:else}
-		Ollesvelke
+    Account
+
+    <div
+      class="container  row--  row-centre--  text  text-white--  card  white--  a-logout"
+      on:click={async () => {
+        try {
+          if (!jobs.includes(`logout`)) {
+            jobs.push(`logout`);
+            await api.logout();
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      }}
+    >
+      <div>
+        {#if jobs.includes(`logout`)}
+          <Loader />
+        {:else}
+          Logout
+        {/if}
+      </div>
+    </div>
 	{/if}
 </div>
 
 <style lang="scss">
-	@import '../assets/scss/all.scss';
+	@import '../../assets/scss/all.scss';
 
-	// landing
+  // account
 
-	.landing {
-		width: calc(100% - $wrapper-gutter * 2);
-		max-width: 1000px;
+	.account {
+
 	}
+
+  // logout
+
+  .a-logout.card {
+    padding: 0.4em 0.8em 0.35em;
+    @include clickable;
+    @include hover-forward(1.04);
+    --bd-a: 0.2;
+    --bd-w: 0.13em;
+
+    > div {
+      font-size: 0.9em;
+    }
+  }
 </style>
