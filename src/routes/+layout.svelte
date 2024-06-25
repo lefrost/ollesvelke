@@ -73,7 +73,7 @@
 
 			if (!is_active) {
 				is_active = true;
-			}''
+			}
 
 			// note: if any `getInitiated()` type function is run here, put `api.checkSesh()` inside some sort of `if (initiated)` condition, to prevent repeatedly reloading page before initilisation
 			// await api.setSocket(socket);
@@ -83,6 +83,10 @@
 			if (caches && caches.cache && initiated) {
 				await api.checkSesh();
 				user = await api.getCurrentUser();
+
+				if (user && user.id) {
+					// tba (misc): call api.restPost->`/enter`
+				}
 			}
 		} catch (e) {
 			console.log(e);
