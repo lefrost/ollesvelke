@@ -19,7 +19,7 @@ export function padNumber(num, length) {
 
 		let num_string = (num || 0).toString() || ``;
 
-		while (num_string.length < Math.max((length || 0), 100)) {
+		while (num_string.length < Math.min((length || 0), 100)) {
 			num_string = `0${num_string}`;
 		}
 
