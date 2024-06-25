@@ -13,6 +13,23 @@ export function formatNumber(num) {
 	}
 }
 
+export function padNumber(num, length) {
+	try {
+		// note: prepend num with 0's till length is sufficed --- will return string --- max 100 char length
+
+		let num_string = (num || 0).toString() || ``;
+
+		while (num_string.length < Math.max((length || 0), 100)) {
+			num_string = `0${num_string}`;
+		}
+
+		return num_string || `0`;
+	} catch (e) {
+		console.log(e);
+		return `0`;
+	}
+}
+
 // https://stackoverflow.com/a/38340730/8919391
 export function removeEmptyArrays(obj) {
 	return Object.fromEntries(Object.entries(obj).filter(([_, v]) => v.length != 0));
