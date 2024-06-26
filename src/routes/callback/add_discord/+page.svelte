@@ -34,6 +34,10 @@
 					).json();
 
 					if (!utils.isEmptyObj(discord_user) && discord_user.id) {
+						let discord_user_id = (discord_user[`id`] || ``).trim() || ``;
+						let discord_user_name = (discord_user[`username`] || ``).trim() || ``;
+						let discord_user_discriminator = (discord_user[`discriminator`] || ``).trim() || ``;
+
 						let matching_user = await api.restPost({
 							url: `get`,
 							payload: {
@@ -43,7 +47,7 @@
 										prop: `connections`,
 										value: {
 											type: `discord`,
-											code: discord_user.id
+											code: discord_user_id
 										},
 										condition: `some`,
 										options: []
@@ -55,19 +59,18 @@
 						if (!utils.isEmptyObj(matching_user)) {
 							error = `this discord account is already connected with another user.`;
 						} else {
-							// tba (misc): instead of calling `edit(user)`, call `adhoc->editUser()`, in which backend functions can be executed, such as uploading user's icon image to google cloud, retrieving the resulting image url, and setting that image url in mongo
 							let updated_user = await api.restPost({
-								url: `edit`,
+								url: `load`,
 								payload: {
-									type: `user`,
+									type: `edit_user`,
 									obj: {
 										id: user.id,
 										connections: [
 											...user.connections,
 											{
 												type: `discord`,
-												code: discord_user.id,
-												name: `${discord_user.username}#${discord_user.discriminator}`
+												code: discord_user_id,
+												name: `${discord_user_name}#${discord_user_discriminator}`
 											}
 										]
 									}

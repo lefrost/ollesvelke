@@ -2,7 +2,7 @@
 	// imports
 	import { onDestroy, onMount } from 'svelte';
 	import { goto } from '$app/navigation';
-	import ConnectButton from '../../components/ConnectButton.svelte';
+	import Connect from '../../components/Connect.svelte';
 	import Loader from '../../components/Loader.svelte';
 	import Placeholder from '../../components/Placeholder.svelte';
 	import * as api from '../../assets/js/api';
@@ -139,22 +139,25 @@
 		/>
 	{:else}
 		<!-- button (google) -->
-		<ConnectButton
+		<Connect
 			platform="google"
-			type="login"
+			context="login"
+			text="Login with Gmail"
 		/>
 
 		{#if false}
 			<!-- button (discord) -->
-			<ConnectButton
+			<Connect
 				platform="discord"
-				type="login"
+				context="login"
+				text="Login with Discord"
 			/>
 
 			<!-- button (solana) -->
-			<ConnectButton
+			<Connect
 				platform="solana"
-				type="login"
+				context="login"
+				text={login_solana_text}
 				is_processing={jobs.includes(`login`)}
 				on:connect={async (connect_data) => {
 					try {

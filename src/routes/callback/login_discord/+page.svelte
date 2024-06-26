@@ -34,6 +34,14 @@
 					).json();
 
 					if (!utils.isEmptyObj(discord_user) && discord_user.id) {
+						let discord_user_id = (discord_user[`id`] || ``).trim() || ``;
+						let discord_user_name = (discord_user[`username`] || ``).trim() || ``;
+						let discord_user_discriminator = (discord_user[`discriminator`] || ``).trim() || ``;
+						let discord_user_avatar_hash = (discord_user[`avatar`] || ``).trim() || ``;
+						let discord_user_icon_image_url = (discord_user_id && discord_user_avatar_hash) ?
+							`https://cdn.discordapp.com/avatars/${discord_user_id}/${discord_user_avatar_hash}.png` :
+							``; // note: change extension to default to `.png`
+
 						let matching_user = await api.restPost({
 							url: `get`,
 							payload: {
@@ -43,7 +51,7 @@
 										prop: `connections`,
 										value: {
 											type: `discord`,
-											code: discord_user.id
+											code: discord_user_id
 										},
 										condition: `some`,
 										options: []
@@ -55,20 +63,28 @@
 						if (!utils.isEmptyObj(matching_user)) {
 							api.setCurrentUser(matching_user, true);
 						} else {
-							// tba (misc): instead of calling `add(user)`, call `adhoc->addUser()`, in which backend functions can be executed, such as uploading user's icon image to google cloud, retrieving the resulting image url, and setting that image url in mongo
+							let icon_image_file = (
+								discord_user_icon_image_url ?
+									await utils.getFileFromImg(discord_user_icon_image_url, `[assign_image_name_in_background]`) :
+									null
+							) || null;
+
 							let new_user = await api.restPost({
-								url: `add`,
+								url: `load`,
 								payload: {
-									type: `user`,
+									type: `add_user`,
 									obj: {
-										name: `${discord_user.username}${
-											discord_user.discriminator
-										}${utils.getRandomNumber(1, 1000)}`,
+										name: utils.shortenString({
+											string: discord_user_name,
+											length: 30
+										}) || ``,
+										icon_image_file,
+										timezone: `UTC`,
 										connections: [
 											{
 												type: `discord`,
-												code: discord_user.id,
-												name: `${discord_user.username}#${discord_user.discriminator}`
+												code: discord_user_id,
+												name: `${discord_user_name}#${discord_user_discriminator}`
 											}
 										]
 									}

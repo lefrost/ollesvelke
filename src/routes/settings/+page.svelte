@@ -1,7 +1,7 @@
 <script lang="ts">
 	// imports
 	import { onDestroy, onMount } from 'svelte';
-	import ConnectButton from '../../components/ConnectButton.svelte';
+	// import Connect from '../../components/Connect.svelte';
 	import Loader from '../../components/Loader.svelte';
 	import Placeholder from '../../components/Placeholder.svelte';
 	import * as api from '../../assets/js/api';
@@ -122,7 +122,29 @@
 			colour="red"
 		/>
 	{:else}
-    <!-- todo -->
+		Account<br />
+
+		<div
+			class="container  row--  row-centre--  text  text-white--  card  white--  s-logout"
+			on:click={async () => {
+				try {
+					if (!jobs.includes(`logout`)) {
+						jobs.push(`logout`);
+						await api.logout();
+					}
+				} catch (e) {
+					console.log(e);
+				}
+			}}
+		>
+			<div>
+				{#if jobs.includes(`logout`)}
+					<Loader />
+				{:else}
+					Logout
+				{/if}
+			</div>
+		</div>
 	{/if}
 </div>
 
@@ -134,4 +156,18 @@
 	.settings {
 
 	}
+
+	// logout
+
+  .s-logout.card {
+    padding: 0.4em 0.8em 0.35em;
+    @include clickable;
+    @include hover-forward(1.04);
+    --bd-a: 0.2;
+    --bd-w: 0.13em;
+
+    > div {
+      font-size: 0.9em;
+    }
+  }
 </style>

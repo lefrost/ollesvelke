@@ -548,6 +548,45 @@ export function getImgSrc(file) {
 	});
 }
 
+export function getImgUrlExtension(img_url) {
+	try {
+		return (img_url || ``)
+		.split(/[#?]/)[0]
+		.split(".")
+		.pop()
+		.trim() || ``;
+	} catch (e) {
+		console.log(e);
+		return ``;
+	}
+}
+
+export async function getFileFromImg(img_url, file_name) {
+	try {
+		if (!(img_url && file_name)) {
+			return null;
+		}
+
+		// reference: javascript file object from image url --- https://stackoverflow.com/a/68222270/8919391
+		const image_extension = getImgUrlExtension(img_url) || ``;
+		const image_response = (image_extension ? await fetch(img_url) : null) || null;
+		const image_blob = image_response ? await image_response.blob() : null;
+
+		let image_file = (image_blob ? new File(
+			[image_blob],
+			`${file_name || `Unknown`}.${image_extension}`,
+			{
+				type: image_blob.type
+			}
+		) : null) || null;
+
+		return image_file || null;
+	} catch (e) {
+		console.log(e);
+		return null;
+	}
+}
+
 export function getBlockchain(blockchain) {
 	try {
 		blockchain = blockchain.trim().toLowerCase();

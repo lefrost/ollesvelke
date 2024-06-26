@@ -85,7 +85,12 @@
 				user = await api.getCurrentUser();
 
 				if (user && user.id) {
-					// tba (misc): call api.restPost->`/enter`
+					api.restPost({
+						url: `enter`,
+						payload: {
+							user_id: (user || {}).id || ``
+						}
+					}); // note: no need to await `enter` endpoint call
 				}
 			}
 		} catch (e) {
