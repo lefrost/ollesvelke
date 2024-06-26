@@ -65,7 +65,7 @@
 						} else {
 							let icon_image_base_64 = (
 								discord_user_icon_image_url ?
-									await utils.getBase64FromImgUrl(discord_user_icon_image_url) :
+									await utils.imgUrlToBase64(discord_user_icon_image_url) :
 									``
 							) || ``;
 
@@ -78,7 +78,10 @@
 											string: discord_user_name,
 											length: 30
 										}) || ``,
-										icon_image_base_64,
+										icon_image_obj: {
+											value: icon_image_base_64 || ``,
+											format: `base64`
+										},
 										timezone: `UTC`,
 										connections: [
 											{

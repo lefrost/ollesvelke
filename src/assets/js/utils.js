@@ -548,7 +548,7 @@ export function getImgSrc(file) {
 	});
 }
 
-export async function getBase64FromImgUrl(img_url) {
+export async function imgUrlToBase64(img_url) {
 	try {
 		// reference: https://stackoverflow.com/a/64929732/8919391
 		return new Promise(async (resolve, reject) => {
