@@ -2,6 +2,7 @@
 	// imports
 	import { onDestroy, onMount } from 'svelte';
 	// import Connect from '../../components/Connect.svelte';
+	// import Input from '../../components/Input.svelte';
 	import Loader from '../../components/Loader.svelte';
 	import Placeholder from '../../components/Placeholder.svelte';
 	import * as api from '../../assets/js/api';

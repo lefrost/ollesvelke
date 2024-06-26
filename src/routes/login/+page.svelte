@@ -8,6 +8,7 @@
 	import * as api from '../../assets/js/api';
 	import * as utils from '../../assets/js/utils';
 
+	import Input from '../../components/Input.svelte';
 	// exports
 	// none
 

@@ -1,8 +1,6 @@
 <script lang="ts">
 	// imports
 
-	// tba (misc): ready-made <Input /> component
-
 	import { onDestroy, onMount } from 'svelte';
 	import Loader from '../components/Loader.svelte';
 	import Placeholder from '../components/Placeholder.svelte';
