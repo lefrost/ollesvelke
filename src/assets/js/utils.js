@@ -294,9 +294,9 @@ export async function blobToDataUrl(val, type) {
 	let blob = type === `url` ? await (await fetch(val)).blob() : val;
 	return new Promise((resolve, reject) => {
 		const reader = new FileReader();
+		reader.readAsDataURL(blob);
 		reader.onloadend = () => resolve(reader.result);
 		reader.onerror = reject;
-		reader.readAsDataURL(blob);
 	});
 }
 
@@ -548,39 +548,17 @@ export function getImgSrc(file) {
 	});
 }
 
-export function getImgUrlExtension(img_url) {
+export async function getBase64FromImgUrl(img_url) {
 	try {
-		return (img_url || ``)
-		.split(/[#?]/)[0]
-		.split(".")
-		.pop()
-		.trim() || ``;
-	} catch (e) {
-		console.log(e);
-		return ``;
-	}
-}
-
-export async function getFileFromImg(img_url, file_name) {
-	try {
-		if (!(img_url && file_name)) {
-			return null;
-		}
-
-		// reference: javascript file object from image url --- https://stackoverflow.com/a/68222270/8919391
-		const image_extension = getImgUrlExtension(img_url) || ``;
-		const image_response = (image_extension ? await fetch(img_url) : null) || null;
-		const image_blob = image_response ? await image_response.blob() : null;
-
-		let image_file = (image_blob ? new File(
-			[image_blob],
-			`${file_name || `Unknown`}.${image_extension}`,
-			{
-				type: image_blob.type
-			}
-		) : null) || null;
-
-		return image_file || null;
+		// reference: https://stackoverflow.com/a/64929732/8919391
+		return new Promise(async (resolve, reject) => {
+			const reader = new FileReader();
+			const img_data = await fetch(img_url);
+			const img_blob = await img_data.blob();
+			reader.readAsDataURL(img_blob);
+			reader.onloadend = () => resolve(reader.result);
+			reader.onerror = reject;
+		});
 	} catch (e) {
 		console.log(e);
 		return null;

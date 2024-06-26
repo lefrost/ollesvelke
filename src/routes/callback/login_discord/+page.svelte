@@ -63,22 +63,22 @@
 						if (!utils.isEmptyObj(matching_user)) {
 							api.setCurrentUser(matching_user, true);
 						} else {
-							let icon_image_file = (
+							let icon_image_base_64 = (
 								discord_user_icon_image_url ?
-									await utils.getFileFromImg(discord_user_icon_image_url, `[assign_image_name_in_background]`) :
-									null
-							) || null;
+									await utils.getBase64FromImgUrl(discord_user_icon_image_url) :
+									``
+							) || ``;
 
 							let new_user = await api.restPost({
 								url: `load`,
 								payload: {
-									type: `add_user`,
+									type: `user_add`,
 									obj: {
 										name: utils.shortenString({
 											string: discord_user_name,
 											length: 30
 										}) || ``,
-										icon_image_file,
+										icon_image_base_64,
 										timezone: `UTC`,
 										connections: [
 											{

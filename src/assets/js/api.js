@@ -34,7 +34,8 @@ export async function checkSesh() {
 export async function getSocket() {
 	return new Promise((resolve, reject) => {
 		socket.subscribe((socket) => {
-			if (browser) resolve(socket);
+			// if (browser) resolve(socket);
+			resolve(socket);
 		});
 	});
 }
@@ -46,7 +47,8 @@ export async function setSocket(val) {
 export async function getIoInstances() {
 	return new Promise((resolve, reject) => {
 		io_instances.subscribe((io_instances) => {
-			if (browser) resolve(JSON.parse(io_instances));
+			// if (browser) resolve(JSON.parse(io_instances));
+			resolve(JSON.parse(io_instances));
 		});
 	});
 }
@@ -58,7 +60,8 @@ export async function setIoInstances(val) {
 export async function getSesh() {
 	return new Promise((resolve, reject) => {
 		sesh.subscribe((sesh) => {
-			if (browser) resolve(sesh);
+			// if (browser) resolve(sesh);
+			resolve(sesh);
 		});
 	});
 }
@@ -70,7 +73,8 @@ export async function getSesh() {
 export async function getPageCode() {
 	return new Promise((resolve, reject) => {
 		page_code.subscribe((page_code) => {
-			if (browser) resolve(page_code);
+			// if (browser) resolve(page_code);
+			resolve(page_code);
 		});
 	});
 }
@@ -83,7 +87,8 @@ export async function getCurrentUser() {
 	return new Promise((resolve, reject) => {
 		user.subscribe((val) => {
 			loadCurrentUser(JSON.parse(val));
-			if (browser) resolve(JSON.parse(val));
+			// if (browser) resolve(JSON.parse(val));
+			resolve(JSON.parse(val));
 		});
 	});
 }

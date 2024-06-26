@@ -43,22 +43,19 @@ export const actions: Actions = {
           if (matching_user && matching_user.id) {
             api.setCurrentUser(matching_user, true);
           } else {
-            let icon_image_file = (
-              google_user_icon_image_url ?
-                await utils.getFileFromImg(google_user_icon_image_url, `[assign_image_name_in_background]`) :
-                null
-            ) || null;
-
             let new_user = await api.restPost({
               url: `load`,
               payload: {
-                type: `add_user`,
+                type: `user_add`,
                 obj: {
                   name: utils.shortenString({
                     string: google_user_name,
                     length: 30
                   }) || ``,
-                  icon_image_file,
+                  icon_image_obj: {
+                    value: google_user_icon_image_url || ``,
+                    format: `url`
+                  },
                   timezone: `UTC`,
                   connections: [
                     {

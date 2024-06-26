@@ -62,7 +62,7 @@
 							let updated_user = await api.restPost({
 								url: `load`,
 								payload: {
-									type: `edit_user`,
+									type: `user_edit`,
 									obj: {
 										id: user.id,
 										connections: [
