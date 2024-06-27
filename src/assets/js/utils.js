@@ -550,7 +550,7 @@ export function getImgSrc(file) {
 
 export async function imgUrlToBase64(img_url) {
 	try {
-		// reference: https://stackoverflow.com/a/64929732/8919391
+		// ref: https://stackoverflow.com/a/64929732/8919391
 		return new Promise(async (resolve, reject) => {
 			const reader = new FileReader();
 			const img_data = await fetch(img_url);
