@@ -60,9 +60,9 @@
 							error = `this discord account is already connected with another user.`;
 						} else {
 							let updated_user = await api.restPost({
-								url: `load`,
+								url: `edit`,
 								payload: {
-									type: `user_edit`,
+									type: `user`,
 									obj: {
 										id: user.id,
 										connections: [
