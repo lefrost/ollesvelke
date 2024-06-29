@@ -199,9 +199,10 @@ async function beGet(endpoint) {
 	return new Promise((resolve, reject) => {
 		let url = `${API_ENDPOINT}${endpoint}`;
 
-		$.getJSON(url, function (data) {
-			resolve(data);
-		}).fail(() => resolve(null));
+		fetch(url)
+			.then(res => resolve(
+				(!res.ok) ? res.json() : null
+			));
 	});
 }
 
