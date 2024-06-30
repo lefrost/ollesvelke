@@ -1,6 +1,8 @@
 <script lang="ts">
 	// imports
 
+	import { Ollesvege } from 'ollesvege';
+	import _ from 'lodash';
 	import { onDestroy, onMount } from 'svelte';
 	import Loader from '../components/Loader.svelte';
 	import Placeholder from '../components/Placeholder.svelte';
@@ -112,6 +114,11 @@
 		/>
 	{:else}
 		Ollesvelke
+	
+		<!-- note: sample component - https://github.com/lefrost/ollesvege -->
+		<Ollesvege
+			sample_text="Testing Ollesvege component"
+		/>
 	{/if}
 </div>
 
