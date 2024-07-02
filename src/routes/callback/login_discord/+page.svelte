@@ -89,7 +89,9 @@
 												code: discord_user_id,
 												name: `${discord_user_name}#${discord_user_discriminator}`
 											}
-										]
+										],
+										stripe_subs: [],
+										settings: {}
 									}
 								}
 							});
