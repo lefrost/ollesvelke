@@ -354,4 +354,10 @@
       // todo
 		}
 	}
+
+	.g_id_signin {
+		@include swish;
+		@include clickable;
+		@include hover-forward(1.04);
+	}
 </style>

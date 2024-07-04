@@ -22,64 +22,49 @@ export const actions: Actions = {
           let google_user_name = (google_user[`name`] || ``).trim() || ``;
           let google_user_icon_image_url = (google_user[`picture`] || ``).trim() || ``;
 
-          let matching_user = await api.restPost({
-            url: `get`,
+          let new_or_matching_user = await api.restPost({
+            url: `load`,
             payload: {
-              type: `user`,
-              filters: [
-                {
-                  prop: `connections`,
-                  value: {
+              type: `user_add`,
+              obj: {
+                name: utils.shortenString({
+                  string: google_user_name,
+                  length: 30
+                }) || ``,
+                icon_image_obj: {
+                  value: google_user_icon_image_url || ``,
+                  format: `url`
+                },
+                timezone: `UTC`,
+                connections: [
+                  {
                     type: `email`,
-                    code: google_user_email
-                  },
-                  condition: `some`,
-                  options: []
-                }
-              ]
+                    code: google_user_email,
+                    name: google_user_name
+                  }
+                ],
+                stripe_subs: [],
+                settings: {}
+              }
             }
           }) || null;
   
-          if (matching_user && matching_user.id) {
-            api.setCurrentUser(matching_user, true);
+          if (
+            new_or_matching_user &&
+            new_or_matching_user.id &&
+            new_or_matching_user.access_token
+          ) {
+            // api.setCurrentUser(new_user, false);
+            redirect(302, `/callback/login_access_token?user_id=${new_or_matching_user.id}&access_token=${new_or_matching_user.access_token}`);
           } else {
-            let new_user = await api.restPost({
-              url: `load`,
-              payload: {
-                type: `user_add`,
-                obj: {
-                  name: utils.shortenString({
-                    string: google_user_name,
-                    length: 30
-                  }) || ``,
-                  icon_image_obj: {
-                    value: google_user_icon_image_url || ``,
-                    format: `url`
-                  },
-                  timezone: `UTC`,
-                  connections: [
-                    {
-                      type: `email`,
-                      code: google_user_email,
-                      name: ``
-                    }
-                  ],
-                  stripe_subs: [],
-                  settings: {}
-                }
-              }
-            }) || null;
-  
-            if (new_user && new_user.id) {
-              api.setCurrentUser(new_user, true);
-            }
+            redirect(302, `/login`)
           }
         }
       }
     } catch (e) {
       console.log(e);
     } finally {
-      throw redirect(302, '/settings');
+      throw redirect(302, '/login');
     }
   }
 }

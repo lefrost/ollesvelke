@@ -1,0 +1,1 @@
+<!-- tba (misc): get `user_id` and `access_token` and call `adhoc->loadUserLoginByAccessToken()`, and login is successful if that adhoc function returns user with id -->

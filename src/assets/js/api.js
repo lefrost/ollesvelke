@@ -5,6 +5,7 @@ import { browser } from '$app/environment';
 
 const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
 const API_KEY = import.meta.env.VITE_API_KEY;
+const URL = import.meta.env.VITE_URL;
 
 export async function checkSesh() {
 	let sesh_val = Number(await getSesh()) || 0;
@@ -158,24 +159,24 @@ export async function restPost(d) {
 	return await bePost(d);
 }
 
-export async function post(d) {
-	if (!d.skip_intiation_check) {
-		let initiated = (
-			await ioPost({
-				socket: await getSocket(),
-				url: `init`,
-				payload: {}
-			})
-		).cache;
+// export async function post(d) {
+// 	if (!d.skip_intiation_check) {
+// 		let initiated = (
+// 			await ioPost({
+// 				socket: await getSocket(),
+// 				url: `init`,
+// 				payload: {}
+// 			})
+// 		).cache;
 
-		if (!initiated) {
-			location.reload();
-			return;
-		}
-	}
+// 		if (!initiated) {
+// 			location.reload();
+// 			return;
+// 		}
+// 	}
 
-	return await ioPost(d);
-}
+// 	return await ioPost(d);
+// }
 
 // ---- io
 
@@ -210,6 +211,7 @@ async function bePost(d) {
 	let config = {
 		method: `POST`,
 		headers: {
+			'origin': URL,
 			Accept: `application/json`,
 			'Content-Type': `application/json`,
 			'x_api_key': API_KEY
