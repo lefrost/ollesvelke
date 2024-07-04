@@ -6,6 +6,8 @@ import * as utils from '../../../assets/js/utils';
 
 export const actions: Actions = {
   default: async ({ request }) => {
+    let url = `/login`;
+
     try {
       await utils.wait(1); // wait for socket in main +layout.svelte
       let user = await api.getCurrentUser();
@@ -52,19 +54,16 @@ export const actions: Actions = {
           if (
             new_or_matching_user &&
             new_or_matching_user.id &&
-            new_or_matching_user.access_token
+            new_or_matching_user.access_token_string
           ) {
-            // api.setCurrentUser(new_user, false);
-            redirect(302, `/callback/login_access_token?user_id=${new_or_matching_user.id}&access_token=${new_or_matching_user.access_token}`);
-          } else {
-            redirect(302, `/login`)
+            url = `/callback/login_access_token?user_id=${new_or_matching_user.id}&access_token_string=${new_or_matching_user.access_token_string}`;
           }
         }
       }
     } catch (e) {
       console.log(e);
     } finally {
-      throw redirect(302, '/login');
+      throw redirect(302, url);
     }
   }
 }
