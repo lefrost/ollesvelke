@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 	import * as api from '../../../assets/js/api';
 	import * as utils from '../../../assets/js/utils';
   
@@ -22,7 +23,8 @@
 		} else {
 			setTimeout(async () => {
 				const fragment = new URLSearchParams(window.location.hash.slice(1));
-				const [access_token_string, user_id] = [fragment.get('access_token_string'), fragment.get('user_id')];
+				const access_token_string = $page.url.searchParams.get(`access_token_string`);
+				const user_id = $page.url.searchParams.get(`user_id`);
 
         let matching_user = await api.restPost({
           url: `load`,
