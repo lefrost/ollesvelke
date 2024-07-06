@@ -1,7 +1,7 @@
 import { socket, io_instances, theme, user, sesh, page_code } from './stores.js';
 import * as utils from './utils';
 
-import { browser } from '$app/environment';
+// import { browser } from '$app/environment';
 
 const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
 const API_KEY = import.meta.env.VITE_API_KEY;
