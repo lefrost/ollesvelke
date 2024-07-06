@@ -97,7 +97,7 @@
 </script>
 
 <!-- settings -->
-<div class="container  stretch--  col--  col-centre--  text  text-black--  settings">
+<div class="container  stretch--  col--  col-centre--  text  text-white--  settings">
 	{#if IN_MAINTENANCE}
 		<Placeholder
 			is_loading={false}
@@ -123,7 +123,8 @@
 			colour="red"
 		/>
 	{:else}
-		Account<br />
+		Account<br /><br />
+		Logged in as {user.name}<br /><br />
 
 		<div
 			class="container  row--  row-centre--  text  text-white--  card  white--  s-logout"
