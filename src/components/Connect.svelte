@@ -300,11 +300,6 @@
       data-login_uri={GOOGLE_LOGIN_REDIRECT_URI}
       data-auto_prompt="false"
     />
-    <!-- data-ux_mode="redirect" -->
-
-    <!-- https://accounts.google.com/gsi/select?client_id=25996729794-paml5qmvd50dvr1f4de62r0f2m7d5lb9.apps.googleusercontent.com&ux_mode=redirect&login_uri=http%3A%2F%2Flocalhost%3A3000%2Fcallback%2Flogin_google&ui_mode=card&as=BsUhU1s2DAC4BxSqwzrtpw&g_csrf_token=7fe16fd7b0c66f96&origin=http%3A%2F%2Flocalhost%3A3000
-
-    https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?client_id=25996729794-paml5qmvd50dvr1f4de62r0f2m7d5lb9.apps.googleusercontent.com&&scope=openid%20email%20profile&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fcallback%2Flogin_google&state=miVGLQl1HWmbflDiF9BHnFFJSq9oX9_dmw9Dy81_AUw&code_challenge=pe2ypFUGvxXi7TJ2RUR8nav7yJEUcbfNRzt5jMEbvmI&code_challenge_method=S256&service=lso&o2v=2&ddm=0&flowName=GeneralOAuthFlow -->
 
     <div
       class="g_id_signin"
