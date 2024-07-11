@@ -324,6 +324,44 @@
 	}
 }
 
+// svg
+
+.svg {
+	--filter-colour: #{$white-filter};
+
+	filter: var(--filter-colour);
+
+	// colour
+
+	&.svg-black-- {
+		--filter-colour: #{$black-filter};
+	}
+
+	&.svg-blue-- {
+		--filter-colour: #{$blue-filter};
+	}
+
+	&.svg-green-- {
+		--filter-colour: #{$green-fliter};
+	}
+
+	&.svg-orange-- {
+		--filter-colour: #{$orange-filter};
+	}
+
+	&.svg-red-- {
+		--filter-colour: #{$red-filter};
+	}
+
+	&.svg-white-- {
+		--filter-colour: #{$white-filter};
+	}
+
+	&.svg-yellow-- {
+		--filter-colour: #{$yellow-filter};
+	}
+}
+
 // ---- disabled
 
 .disabled {
