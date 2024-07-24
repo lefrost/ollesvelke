@@ -4,6 +4,7 @@
   let sample_text = document.currentScript.getAttribute(`data-sample-text`) || `Sample text`;
 
   // consts
+
   const API_KEY = `component`;
   // --- prod
   // export const API_ENDPOINT = `https://your-api.herokuapp.com/`;
@@ -23,7 +24,7 @@
 
   async function mount() {
     await getData();
-    
+
     if (data) {
       inject();
     }
@@ -147,6 +148,7 @@
   }
 
   async function restPost(d) {
+    // note: borrowed from /assets/js/api
     try {
       if (!d.skip_intiation_check) {
         let initiated = (
@@ -170,6 +172,7 @@
   }
 
   async function bePost(d) {
+    // note: borrowed from /assets/js/api
     try {
       let config = {
         method: `POST`,
