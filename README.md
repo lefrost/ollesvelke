@@ -7,5 +7,5 @@
 - ts & scss support, base assets & styles, and session storage.
 - support for [socket.io](https://socket.io/) and/or rest api.
 - support for google, discord, and solana login.
-- support for self-hosted [script.js](https://github.com/lefrost/ollesvelke/blob/main/static/js/script.js) component, with example usage.
-- compatible with [ollesvege](https://github.com/lefrost/ollesvege) component, with example usage.
+- support for self-hosted [script.js](https://github.com/lefrost/ollesvelke/blob/main/static/js/script.js) component, with [example usage](https://github.com/lefrost/ollesvelke/blob/main/src/app.html).
+- compatible with [ollesvege](https://github.com/lefrost/ollesvege) component, with [example usage](https://github.com/lefrost/ollesvelke/blob/main/src/routes/%2Blayout.svelte).
