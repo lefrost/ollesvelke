@@ -5,5 +5,7 @@
 - `npm i`, `npm run dev` to run. default port is 3000.
 - deploy: link repo to [vercel](https://vercel.com). ensure correct node version in [settings](https://vercel.com/changelog/node-js-version-now-customizable-in-the-project-settings).
 - ts & scss support, base assets & styles, and session storage.
-- support for socket.io and/or rest api.
-- support for solana login.
+- support for [socket.io](https://socket.io/) and/or rest api.
+- support for google, discord, and solana login.
+- support for self-hosted [script.js](https://github.com/lefrost/ollesvelke/blob/main/static/js/script.js) component.
+- compatible with [ollesvege](https://github.com/lefrost/ollesvege) component.
