@@ -396,11 +396,11 @@ export async function toggle(dom_item) {
 	}
 }
 
-// https://stackoverflow.com/a/20285053/8919391
 export async function blobToDataUrl(val, type) {
+	// note: used for converting img file/img url to base64 --- https://stackoverflow.com/a/20285053/8919391
 	try {
-		let blob = type === `url` ? await (await fetch(val)).blob() : val;
-		return new Promise((resolve, reject) => {
+		return new Promise(async (resolve, reject) => {
+			const blob = (type === `url`) ? await (await fetch(val)).blob() : val;
 			const reader = new FileReader();
 			reader.readAsDataURL(blob);
 			reader.onloadend = () => resolve(reader.result);
@@ -408,7 +408,7 @@ export async function blobToDataUrl(val, type) {
 		});
 	} catch (e) {
 		console.log(e);
-		return null;
+		return ``;
 	}
 }
 
@@ -751,23 +751,6 @@ export function getImgSrc(file) {
 			resolve(null);
 		}
 	});
-}
-
-export async function imgUrlToBase64(img_url) {
-	try {
-		// ref: https://stackoverflow.com/a/64929732/8919391
-		return new Promise(async (resolve, reject) => {
-			const reader = new FileReader();
-			const img_data = await fetch(img_url);
-			const img_blob = await img_data.blob();
-			reader.readAsDataURL(img_blob);
-			reader.onloadend = () => resolve(reader.result);
-			reader.onerror = reject;
-		});
-	} catch (e) {
-		console.log(e);
-		return null;
-	}
 }
 
 export function getBlockchainName(blockchain) {
