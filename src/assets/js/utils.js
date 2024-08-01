@@ -770,27 +770,23 @@ export async function imgUrlToBase64(img_url) {
 	}
 }
 
-export function getBlockchain(blockchain) {
+export function getBlockchainName(blockchain) {
 	try {
 		blockchain = blockchain.trim().toLowerCase();
 
-		if (blockchain === `solana` || blockchain.startsWith(`sol`)) {
-			return `solana`;
-		} else if (blockchain === `arbitrum` || blockchain.startsWith(`arb`)) {
-			return `arbitrum`;
-		} else if (blockchain === `bitcoin` || blockchain.startsWith(`btc`)) {
+		if ((blockchain === `bitcoin`) || blockchain.startsWith(`btc`)) {
 			return `bitcoin`;
-		} else if (blockchain === `ethereum` || blockchain.startsWith(`eth`)) {
+		} else if ((blockchain === `ethereum`) || blockchain.startsWith(`eth`)) {
 			return `ethereum`;
+		} else if ((blockchain === `solana`) || blockchain.startsWith(`sol`)) {
+			return `solana`;
 		} else if (
-			blockchain === `polygon` ||
-			blockchain === `matic` ||
+			(blockchain === `polygon`) ||
+			(blockchain === `matic`) ||
 			blockchain.startsWith(`poly`) ||
 			blockchain.startsWith(`matic`)
 		) {
 			return `polygon`;
-		} else if (blockchain === `sui` || blockchain.startsWith(`sui`)) {
-			return `sui`;
 		} else {
 			return null;
 		}
