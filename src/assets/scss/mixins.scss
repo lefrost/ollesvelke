@@ -469,3 +469,26 @@
 		background: rgba($white-hex, 0);
 	}
 }
+
+// card
+
+@mixin bordered-background-card {
+	// note: fix weird transparent borders with gradient background
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	background-size: 110% 110%;
+}
+
+@mixin dot-card {
+	aspect-ratio: 1/1;
+	--bd-r: 50%;
+	--bd-w: 0em;
+}
+
+// image
+
+@mixin icon-image {
+	aspect-ratio: 1/1;
+	border: 0.13em solid rgba($white-hex, 0.05);
+	border-radius: 50%;
+}

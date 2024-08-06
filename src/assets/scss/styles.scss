@@ -393,9 +393,7 @@
 		rgba(var(--bg-1), var(--bg-a1)),
 		rgba(var(--bg-2), var(--bg-a2))
 	);
-	background-repeat: no-repeat; // fix weird transparent borders with gradient background (1)
-	background-position: 50% 50%; // fix weird transparent borders with gradient background (2)
-	background-size: 110% 110%; // fix weird transparent borders with gradient background (3)
+	@include background-border-card;
 	border: var(--bd-w) solid rgba(var(--bd), var(--bd-a));
 	border-radius: var(--bd-r);
 
