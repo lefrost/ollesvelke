@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans&family=Rubik:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400..600&family=Rubik:wght@500&display=swap");
 
 // @font-face {
 // 	font-family: 'ComputerPixel7';
@@ -8,29 +8,29 @@
 $wrapper-gutter: 20px;
 $wrapper-width: 1200px;
 
-// note: hex to filter reference - https://stackoverflow.com/a/53336754 + https://isotropic.co/tool/hex-color-to-css-filter/ OR https://codepen.io/sosuke/pen/Pjoqqp
+// note: hex to filter reference - https://stackoverflow.com/a/53336754 + https://cssfilterconverter.com
 
 $black-hex: #000000;
 $black: 0, 0, 0;
-$black-filter: invert(0%) sepia(82%) saturate(7429%) hue-rotate(43deg) brightness(112%) contrast(114%);
+$black-filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(29deg) brightness(99%) contrast(101%);
 $blue-hex: #689FFE;
 $blue: 104, 159, 254;
-$blue-filter: invert(71%) sepia(91%) saturate(3409%) hue-rotate(193deg) brightness(101%) contrast(99%);
+$blue-filter: brightness(0) saturate(100%) invert(59%) sepia(99%) saturate(2288%) hue-rotate(196deg) brightness(104%) contrast(99%);
 $green-hex: #20D474;
 $green: 32, 212, 116;
-$green-filter: invert(60%) sepia(100%) saturate(347%) hue-rotate(95deg) brightness(91%) contrast(97%);
+$green-filter: brightness(0) saturate(100%) invert(67%) sepia(31%) saturate(1068%) hue-rotate(95deg) brightness(95%) contrast(88%);
 $orange-hex: #FEA068;
 $orange: 254, 160, 104;
-$orange-filter: invert(64%) sepia(49%) saturate(552%) hue-rotate(332deg) brightness(103%) contrast(99%);
+$orange-filter: brightness(0) saturate(100%) invert(62%) sepia(50%) saturate(474%) hue-rotate(336deg) brightness(103%) contrast(99%);
 $red-hex: #E5286D;
 $red: 229, 40, 109;
-$red-filter: invert(25%) sepia(84%) saturate(3623%) hue-rotate(324deg) brightness(94%) contrast(91%);
+$red-filter: brightness(0) saturate(100%) invert(22%) sepia(97%) saturate(2294%) hue-rotate(321deg) brightness(93%) contrast(92%);
 $white-hex: #fff;
 $white: 255, 255, 255;
-$white-filter: invert(100%) sepia(77%) saturate(0%) hue-rotate(69deg) brightness(113%) contrast(101%);
+$white-filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(2%) hue-rotate(78deg) brightness(103%) contrast(100%);
 $yellow-hex: #F3BD3D;
 $yellow: 243, 189, 61;
-$yellow-filter: invert(81%) sepia(75%) saturate(800%) hue-rotate(327deg) brightness(101%) contrast(91%);
+$yellow-filter: brightness(0) saturate(100%) invert(96%) sepia(8%) saturate(5158%) hue-rotate(326deg) brightness(99%) contrast(92%);
 
 $bp-sm: 640px;
 $bp-md: 800px;
