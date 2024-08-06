@@ -393,7 +393,7 @@
 		rgba(var(--bg-1), var(--bg-a1)),
 		rgba(var(--bg-2), var(--bg-a2))
 	);
-	@include background-border-card;
+	@include bordered-background-card;
 	border: var(--bd-w) solid rgba(var(--bd), var(--bd-a));
 	border-radius: var(--bd-r);
 
