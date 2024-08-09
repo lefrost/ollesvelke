@@ -492,6 +492,8 @@
 // 	}
 // }
 
+// bg
+
 .bg {
 	position: fixed;
 	top: 0;
@@ -512,4 +514,10 @@
 	width: 100%;
 	height: 100%;
 	background-size: cover;
+}
+
+// page
+
+.page {
+	min-height: calc(100vh - 4em);	
 }

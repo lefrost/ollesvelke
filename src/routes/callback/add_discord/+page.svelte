@@ -97,7 +97,7 @@
 	});
 </script>
 
-<div class="container  grow--  stretch--  col--  col-centre--  col-middle--  callback">
+<div class="container  grow--  stretch--  col--  col-centre--  col-middle--  page  callback">
 	{#if jobs.includes(`load`)}
 		<Placeholder
 			is_loading={true}

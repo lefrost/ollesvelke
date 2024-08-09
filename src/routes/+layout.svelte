@@ -141,7 +141,7 @@
 	// none
 </script>
 
-<div class="container  stretch--  grow--  col--  col-centre--  layout">
+<div class="container  stretch--  grow--  col--  col-centre--  page  layout">
 	{#if IN_MAINTENANCE}
 		<Placeholder
 			is_loading={false}

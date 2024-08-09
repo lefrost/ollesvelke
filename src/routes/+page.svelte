@@ -92,7 +92,7 @@
 
 <!-- landing -->
 <div
-	class="container  grow--  col--  col-centre--  col-middle--  text  text-white--  landing"
+	class="container  grow--  col--  col-centre--  col-middle--  text  text-white--  page  landing"
 >
 	{#if IN_MAINTENANCE}
 		<Placeholder
