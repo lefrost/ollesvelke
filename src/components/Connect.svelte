@@ -22,14 +22,8 @@
 	
 	const wallets = [
 		new PhantomWalletAdapter(),
-		new BackpackWalletAdapter(),
-		new BraveWalletAdapter(),
-		new ExodusWalletAdapter(),
-		new GlowWalletAdapter(),
 		new LedgerWalletAdapter(),
 		new SolflareWalletAdapter(),
-		new SlopeWalletAdapter(),
-		new SolletWalletAdapter(),
 		new TorusWalletAdapter(),
 	];
 	const localStorageKey = `walletAdapter`;
