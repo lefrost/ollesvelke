@@ -90,7 +90,7 @@
 
 <!-- sample -->
 <div
-	class="container  grow--  col--  col-centre--  text  text-white--  page  sample"
+	class="container  grow--  col--  col-centre--  text  text-white--sample"
 >
 	{#if IN_MAINTENANCE}
 		<Placeholder

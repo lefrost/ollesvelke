@@ -141,7 +141,7 @@
 	// none
 </script>
 
-<div class="container  stretch--  grow--  col--  col-centre--  page  layout">
+<div class="container  stretch--  grow--  col--  col-centre--layout">
 	{#if IN_MAINTENANCE}
 		<Placeholder
 			is_loading={false}
@@ -169,6 +169,10 @@
 	{:else}
 		<Header />
 		<slot />
+		
+		<!-- note: filler gap -->
+		<div class="container  grow--  col--" />
+
 		<Footer />
 	{/if}
 </div>
@@ -179,7 +183,8 @@
 	// layout
 
 	.layout {
-		font-size: 12px;
+		font-size: 12px; 
+
 
 		@media (min-width: $bp-sm) {
 			font-size: 15px;

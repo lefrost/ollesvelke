@@ -113,7 +113,7 @@
 </script>
 
 <!-- login -->
-<div class="container  stretch--  col--  col-centre--  text  text-black--  page  login">
+<div class="container  stretch--  col--  col-centre--  text  text-black--login">
 	{#if IN_MAINTENANCE}
 		<Placeholder
 			is_loading={false}

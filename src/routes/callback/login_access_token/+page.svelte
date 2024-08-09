@@ -50,7 +50,7 @@
 </script>
 
 <!-- callback -->
-<div class="container  grow--  col--  col-centre--  col-middle--  page  callback">
+<div class="container  grow--  col--  col-centre--  col-middle--callback">
 	{#if jobs.includes(`load`)}
 		<Placeholder
       is_loading={true}
