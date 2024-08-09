@@ -13,14 +13,14 @@
 	} from "@svelte-on-solana/wallet-adapter-ui";
 	import {
 		PhantomWalletAdapter,
-		BackpackWalletAdapter,
-		BraveWalletAdapter,
-		ExodusWalletAdapter,
-		GlowWalletAdapter,
+		// BackpackWalletAdapter,
+		// BraveWalletAdapter,
+		// ExodusWalletAdapter,
+		// GlowWalletAdapter,
 		LedgerWalletAdapter,
 		SolflareWalletAdapter,
-		SlopeWalletAdapter,
-		SolletWalletAdapter,
+		// SlopeWalletAdapter,
+		// SolletWalletAdapter,
 		TorusWalletAdapter,
 	} from "@solana/wallet-adapter-wallets";
 
