@@ -65,7 +65,7 @@
 						} else {
 							let icon_image_base_64 = (
 								discord_user_icon_image_url ?
-									await utils.imgUrlToBase64(discord_user_icon_image_url) :
+									await utils.blobToDataUrl(discord_user_icon_image_url, `url`) :
 									``
 							) || ``;
 
