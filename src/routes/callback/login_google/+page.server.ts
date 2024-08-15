@@ -46,6 +46,7 @@ export const actions: Actions = {
                   }
                 ],
                 stripe_subs: [],
+                honoraries: [],
                 settings: {}
               }
             }

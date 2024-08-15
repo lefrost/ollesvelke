@@ -91,6 +91,7 @@
 											}
 										],
 										stripe_subs: [],
+										honoraries: [],
 										settings: {}
 									}
 								}

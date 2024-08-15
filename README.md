@@ -8,4 +8,5 @@
 - support for [socket.io](https://socket.io/) and/or rest api.
 - support for google, discord, and solana login.
 - support for self-hosted [script.js](https://github.com/lefrost/ollesvelke/blob/main/static/js/script.js) component, with [example usage](https://github.com/lefrost/ollesvelke/blob/main/src/app.html).
+- designed to be used alongside [ollesocket](https://github.com/lefrost/ollesocket) backend.
 - compatible with [ollesvege](https://github.com/lefrost/ollesvege) component, with [example usage](https://github.com/lefrost/ollesvelke/blob/main/src/routes/%2Bpage.svelte).
