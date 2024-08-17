@@ -135,7 +135,7 @@
       
       component.addEventListener(`click`, () => {
         try {
-          console.log(`scrtip.js - todo: example of event lister, remove when unneeded`);
+          console.log(`script.js - todo: example of event lister, remove when unneeded`);
         } catch (e) {
           console.log(e);
         }
