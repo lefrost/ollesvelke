@@ -138,7 +138,7 @@
       
       component.addEventListener(`click`, () => {
         try {
-          console.log(`script.js - todo: example of event lister, remove when unneeded`);
+          console.log(`script.js - todo: example of event listener, remove when unneeded`);
         } catch (e) {
           console.log(e);
         }
