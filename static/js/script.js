@@ -5,14 +5,13 @@
 
   // consts
 
-  const API_KEY = `component`;
+  const X_API_KEY = `component`;
+  const FALLBACK_USER_IMAGE = `https://your-website.name/images/fallback/user_image.png`;
   // --- prod
   // export const API_ENDPOINT = `https://your-api.herokuapp.com/`;
-  // export const FALLBACK_USER_IMAGE = `https://your-website.name/images/fallback/user_image.png`;
   // export const URL = `https://your-website.name`;
   // --- dev
   const API_ENDPOINT = `http://localhost:3001/`;
-  const FALLBACK_USER_IMAGE = `https://your-website.name/images/fallback/user_image.png`;
   const URL = `http://localhost:3000`;
 
   // vars
@@ -183,7 +182,7 @@
           'origin': URL,
           Accept: `application/json`,
           'Content-Type': `application/json`,
-          'x_api_key': API_KEY
+          'x_api_key': X_API_KEY
         }
       };
   
@@ -194,6 +193,15 @@
       let res = JSON.parse(await (await fetch(`${API_ENDPOINT}${d.url}`, config)).text());
   
       return d.all ? res : res.data;
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
+  }
+
+  function clone(obj) {
+    try {
+      return obj ? JSON.parse(JSON.stringify(obj)) : null;
     } catch (e) {
       console.log(e);
       return null;
