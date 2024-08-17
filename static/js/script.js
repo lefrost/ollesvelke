@@ -20,6 +20,9 @@
   let data;
   let jobs = [`get_data`]; // note: has to be declared in vars section rather than jobs section since otherwise js will throw an error "cannot access jobs before initialisation"
 
+  // dynamics
+  // none
+
   // mount
 
   async function mount() {
