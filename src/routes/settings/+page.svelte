@@ -97,7 +97,7 @@
 </script>
 
 <!-- settings -->
-<div class="container  stretch--  col--  col-centre--  text  text-white--settings">
+<div class="container  stretch--  col--  col-centre--  text  text-white--  settings">
 	{#if IN_MAINTENANCE}
 		<Placeholder
 			is_loading={false}
