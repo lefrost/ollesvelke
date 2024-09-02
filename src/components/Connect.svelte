@@ -62,6 +62,7 @@
   export let platform = `google`; // <`google`, `solana`, `discord`>
   export let context = `login`; // <`login`, `add`>
   export let text = `Connect`;
+	export let redirect_url = ``;
 
   // google vars
 
@@ -252,7 +253,7 @@
   {#if context === `login`}
     <!-- login (disocrd) -->
     <a
-      href={DISCORD_LOGIN_ENDPOINT}
+			href={`${DISCORD_LOGIN_ENDPOINT}${redirect_url ? `?redirect_url=${redirect_url}` : ``}`}
       class="container  grow--  row--  row-centre--  text  text-blue--  card  blue--  connect-login  c-discord--"
       class:disabled={is_processing}
     >
@@ -261,7 +262,7 @@
   {:else if context === `add`}
     <!-- add (discord) -->
     <a
-      href={DISCORD_ADD_ENDPOINT}
+			href={`${DISCORD_ADD_ENDPOINT}${redirect_url ? `?redirect_url=${redirect_url}` : ``}`}
       class="container  stretch--  row--  row-centre--  text  text-turquoise--  card  turquoise--  connect-login  c-add--  c-discord--"
       class:disabled={is_processing}
     >
@@ -285,7 +286,7 @@
     <div
       id="g_id_onload"
       data-client_id={GOOGLE_CLIENT_ID}
-      data-login_uri={GOOGLE_LOGIN_REDIRECT_URI}
+      data-login_uri={`${GOOGLE_LOGIN_REDIRECT_URI}${redirect_url ? `?redirect_url=${redirect_url}` : ``}`}
       data-auto_prompt="false"
     />
 
@@ -298,7 +299,7 @@
       data-text="sign_in_with"
       data-shape="rectangular"
       data-logo_alignment="left"
-      data-redirect-uri={GOOGLE_LOGIN_REDIRECT_URI}
+			data-redirect-uri={`${GOOGLE_LOGIN_REDIRECT_URI}${redirect_url ? `?redirect_url=${redirect_url}` : ``}`}
       on:click={() => {
         try {
           is_google_toggled = true;

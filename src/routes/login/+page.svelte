@@ -2,6 +2,7 @@
 	// imports
 	import { onDestroy, onMount } from 'svelte';
 	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 	import Connect from '../../components/Connect.svelte';
 	import Loader from '../../components/Loader.svelte';
 	import Placeholder from '../../components/Placeholder.svelte';
@@ -22,6 +23,7 @@
 	let data;
 	let user;
 	let caches;
+	let redirect_url = ``;
 	
 	let login_solana_text = `Solana wallet`;
 
@@ -38,6 +40,8 @@
 		if (!is_active) {
 			is_active = true;
 		}
+		
+		redirect_url = $page.url.searchParams.get(`redirect_url`) || ``;
 
 		await getData();
 	});
@@ -144,6 +148,7 @@
 			platform="google"
 			context="login"
 			text="Login with Gmail"
+			{redirect_url}
 		/>
 
 		{#if false}
@@ -152,6 +157,7 @@
 				platform="discord"
 				context="login"
 				text="Login with Discord"
+				{redirect_url}
 			/>
 
 			<!-- button (solana) -->
@@ -159,6 +165,7 @@
 				platform="solana"
 				context="login"
 				text={login_solana_text}
+				{redirect_url}
 				is_processing={jobs.includes(`login`)}
 				on:connect={async (connect_data) => {
 					try {

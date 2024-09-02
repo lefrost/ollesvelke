@@ -5,12 +5,14 @@ import * as api from '../../../assets/js/api';
 import * as utils from '../../../assets/js/utils';
 
 export const actions: Actions = {
-  default: async ({ request }) => {
-    let url = `/login`;
+  default: async ({ request, url }) => {
+    let new_url = `/login`;
 
     try {
       await utils.wait(1); // wait for socket in main +layout.svelte
       let user = await api.getCurrentUser();
+      
+      let redirect_url = (url.searchParams.get(`redirect_url`) || ``).trim() || ``;
   
       if (!(user && user.id)) {
         let form_data = await request.formData();
@@ -57,14 +59,14 @@ export const actions: Actions = {
             new_or_matching_user.id &&
             new_or_matching_user.access_token_string
           ) {
-            url = `/callback/login_access_token?user_id=${new_or_matching_user.id}&access_token_string=${new_or_matching_user.access_token_string}`;
+            new_url = `/callback/login_access_token?user_id=${new_or_matching_user.id}&access_token_string=${new_or_matching_user.access_token_string}${redirect_url ? `&redirect_url=${redirect_url}` : ``}`;
           }
         }
       }
     } catch (e) {
       console.log(e);
     } finally {
-      throw redirect(302, url);
+      throw redirect(302, new_url);
     }
   }
 }

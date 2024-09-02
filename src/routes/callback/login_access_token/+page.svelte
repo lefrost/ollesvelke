@@ -18,8 +18,10 @@
 		await utils.wait(1); // wait for socket in main +layout.svelte
 		user = await api.getCurrentUser();
 
+		const redirect_url = $page.url.searchParams.get(`redirect_url`);
+
 		if (!utils.isEmptyObj(user)) {
-			goto(`/`);
+			goto(redirect_url || `/`);
 		} else {
 			setTimeout(async () => {
 				const fragment = new URLSearchParams(window.location.hash.slice(1));
