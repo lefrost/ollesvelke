@@ -62,7 +62,7 @@
         
 				jobs = jobs.filter(j => j !== `get_data`);
 				
-				goto('/login');
+        goto(`/login?redirect_url=${encodeURIComponent(`/settings`)}`);
 			} else {
 				// data = await api.restPost({
 				// 	url: `load`,

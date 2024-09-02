@@ -148,7 +148,7 @@
 			platform="google"
 			context="login"
 			text="Login with Gmail"
-			{redirect_url}
+			redirect_url={encodeURIComponent(redirect_url) || ``}
 		/>
 
 		{#if false}
@@ -157,7 +157,7 @@
 				platform="discord"
 				context="login"
 				text="Login with Discord"
-				{redirect_url}
+				redirect_url={encodeURIComponent(redirect_url) || ``}
 			/>
 
 			<!-- button (solana) -->
@@ -165,7 +165,7 @@
 				platform="solana"
 				context="login"
 				text={login_solana_text}
-				{redirect_url}
+				redirect_url={encodeURIComponent(redirect_url) || ``}
 				is_processing={jobs.includes(`login`)}
 				on:connect={async (connect_data) => {
 					try {

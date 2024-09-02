@@ -62,11 +62,10 @@
   export let platform = `google`; // <`google`, `solana`, `discord`>
   export let context = `login`; // <`login`, `add`>
   export let text = `Connect`;
-	export let redirect_url = ``;
+	export let redirect_url = ``; // note: do encodeURIComponent on redirect_url when on any redirects except on (1) server-to-frontend redirects (eg. .ts file to .svelte file) or (2) redirecting to the redirect_url itself
 
   // google vars
-
-	let is_google_toggled;
+	// none
 
   // solana vars
   
@@ -292,7 +291,6 @@
 
     <div
       class="g_id_signin"
-      class:c-toggled--={is_google_toggled}
       data-type="standard"
       data-size="medium"
       data-theme="outline"
@@ -300,13 +298,6 @@
       data-shape="rectangular"
       data-logo_alignment="left"
 			data-redirect-uri={`${GOOGLE_LOGIN_REDIRECT_URI}${redirect_url ? `?redirect_url=${redirect_url}` : ``}`}
-      on:click={() => {
-        try {
-          is_google_toggled = true;
-        } catch (e) {
-          console.log(e);
-        }
-      }}
     />
   {:else if context === `add`}
     <!-- todo -->
