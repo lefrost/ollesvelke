@@ -28,7 +28,7 @@
 				const access_token_string = $page.url.searchParams.get(`access_token_string`);
 				const user_id = $page.url.searchParams.get(`user_id`);
 
-        let matching_user = await api.restPost({
+        let user_login_res = await api.restPost({
           url: `load`,
           payload: {
             type: `user_login_by_access_token`,
@@ -39,8 +39,12 @@
           }
         }) || null;
 
-        if (matching_user && matching_user.id) {
-          api.setCurrentUser(matching_user, true);
+        if (
+					user_login_res &&
+					user_login_res.user &&
+					user_login_res.user.id
+				) {
+          api.setCurrentUser(user_login_res.user, true);
         } else {
           error = `error logging in, try again.`;
         }

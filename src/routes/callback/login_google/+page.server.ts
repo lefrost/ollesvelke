@@ -26,7 +26,7 @@ export const actions: Actions = {
           let google_user_name = (google_user[`name`] || ``).trim() || ``;
           let google_user_icon_image_url = (google_user[`picture`] || ``).trim() || ``;
 
-          let new_or_matching_user = await api.restPost({
+          let user_add_res = await api.restPost({
             url: `load`,
             payload: {
               type: `user_add`,
@@ -55,11 +55,12 @@ export const actions: Actions = {
           }) || null;
   
           if (
-            new_or_matching_user &&
-            new_or_matching_user.id &&
-            new_or_matching_user.access_token_string
+            user_add_res &&
+            user_add_res.user &&
+            user_add_res.user.id &&
+            user_add_res.access_token_string
           ) {
-            new_url = `/callback/login_access_token?user_id=${new_or_matching_user.id}&access_token_string=${new_or_matching_user.access_token_string}${redirect_url ? `&redirect_url=${redirect_url}` : ``}`;
+            new_url = `/callback/login_access_token?user_id=${user_add_res.user.id}&access_token_string=${user_add_res.access_token_string}${redirect_url ? `&redirect_url=${redirect_url}` : ``}`;
           }
         }
       }

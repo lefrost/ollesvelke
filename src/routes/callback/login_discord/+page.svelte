@@ -72,7 +72,7 @@
 									``
 							) || ``;
 
-							let new_user = await api.restPost({
+							let user_add_res = await api.restPost({
 								url: `load`,
 								payload: {
 									type: `user_add`,
@@ -100,8 +100,13 @@
 								}
 							});
 
-							if (!utils.isEmptyObj(new_user)) {
-								api.setCurrentUser(new_user, true);
+							
+							if (
+								user_add_res &&
+								user_add_res.user &&
+								user_add_res.user.id
+							) {
+								api.setCurrentUser(user_add_res.user, true);
 							} else {
 								error = `error adding new user.`;
 							}
