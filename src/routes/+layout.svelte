@@ -84,14 +84,14 @@
 				await api.checkSesh();
 				user = await api.getCurrentUser();
 
-				if (user && user.id) {
-					api.restPost({
-						url: `enter`,
-						payload: {
-							user_id: (user || {}).id || ``
-						}
-					}); // note: no need to await `enter` endpoint call
-				}
+				// if (user && user.id) {
+				// 	api.restPost({
+				// 		url: `enter`,
+				// 		payload: {
+				// 			user_id: (user || {}).id || ``
+				// 		}
+				// 	}); // note: no need to await `enter` endpoint call
+				// }
 			}
 		} catch (e) {
 			console.log(e);
@@ -141,7 +141,7 @@
 	// none
 </script>
 
-<div class="container  stretch--  grow--  col--  col-centre--layout">
+<div class="container  stretch--  grow--  col--  col-centre--  layout">
 	{#if IN_MAINTENANCE}
 		<Placeholder
 			is_loading={false}
@@ -183,8 +183,7 @@
 	// layout
 
 	.layout {
-		font-size: 12px; 
-
+		font-size: 12px;
 
 		@media (min-width: $bp-sm) {
 			font-size: 15px;
