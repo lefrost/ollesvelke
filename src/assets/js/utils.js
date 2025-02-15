@@ -826,7 +826,10 @@ export function compressImage(d) {
 		let width = d.width || 0;
 		let height = d.height || width;
 		
-		if (image_url === FALLBACK_USER_IMAGE) {
+		if (
+			(image_url === FALLBACK_USER_IMAGE) ||
+			image_url.startsWith(`/`)
+		) {
 			return image_url;
 		}
 	
