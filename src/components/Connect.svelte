@@ -205,6 +205,8 @@
 
       dispatch(`connect`, wallet_address);
     }
+		
+		$walletStore.disconnect(); // note: to reset the connect button in ui, disable if this is not desired
 
 		// if ([`account_page`].includes(type)) {
 		// 	$walletStore.disconnect();
