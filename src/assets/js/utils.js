@@ -4,9 +4,9 @@ import _ from 'lodash';
 
 const FALLBACK_USER_IMAGE = import.meta.env.VITE_FALLBACK_USER_IMAGE;
 
-export function formatNumber(num) {
+export function commafyNumber(num) {
 	try {
-		return _.comma(num);
+		return (num ?? 0).toLocaleString(`en-US`);
 	} catch (e) {
 		console.log(e);
 		return 0;
