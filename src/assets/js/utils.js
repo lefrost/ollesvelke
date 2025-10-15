@@ -4,6 +4,22 @@ import _ from 'lodash';
 
 const FALLBACK_USER_IMAGE = import.meta.env.VITE_FALLBACK_USER_IMAGE;
 
+const CACHE_TIMEOUT_MINS = {
+	DEFAULT: 0
+}
+
+export function isCacheEntryRefreshable(cache_entry_code, cache_entry) {
+	if (!(
+		cache_entry &&
+		cache_entry.data &&
+		(!isNaN(cache_entry.timestamp))
+	)) {
+		return true;
+	}
+
+	return (module.exports.getTimestampDiff(cache_entry.timestamp, module.exports.getTimestamp(), `minutes`) >= (CACHE_TIMEOUT_MINS[cache_entry_code] ?? CACHE_TIMEOUT_MINS.DEFAULT));
+}
+
 export function commafyNumber(num) {
 	try {
 		return (num ?? 0).toLocaleString(`en-US`);
