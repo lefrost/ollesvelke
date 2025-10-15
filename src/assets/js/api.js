@@ -1,4 +1,4 @@
-import { socket, io_instances, theme, user, sesh, page_code } from './stores.js';
+import { cache, socket, io_instances, theme, user, sesh, page_code } from './stores.js';
 import * as utils from './utils';
 
 // import { browser } from '$app/environment';
@@ -75,6 +75,27 @@ export async function getIoInstances() {
 export async function setIoInstances(val) {
 	try {
 		io_instances.set(JSON.stringify(val));
+	} catch (e) {
+		console.log(e);
+	}
+}
+
+export async function getCache() {
+	return new Promise((resolve, reject) => {
+		try {
+			cache.subscribe((cache) => {
+				resolve(JSON.parse(cache));
+			});
+		} catch (e) {
+			console.log(e);
+			resolve(null);
+		}
+	});
+}
+
+export async function setCache(val) {
+	try {
+		cache.set(JSON.stringify(val));
 	} catch (e) {
 		console.log(e);
 	}

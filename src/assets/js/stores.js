@@ -40,6 +40,11 @@ is_google_processing.subscribe((val) => {
 	if (browser) return (localStorage.is_google_processing = val);
 });
 
+export const cache = writable((browser && localStorage.getItem('cache')) || null);
+cache.subscribe((val) => {
+	if (browser) return (localStorage.cache = val);
+}); // {[code]:{data{...}, timestamp}}
+
 // ----
 
 // https://stackoverflow.com/a/60921566/8919391
