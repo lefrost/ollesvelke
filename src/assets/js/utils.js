@@ -17,7 +17,7 @@ export function isCacheEntryRefreshable(cache_entry_code, cache_entry) {
 		return true;
 	}
 
-	return (module.exports.getTimestampDiff(cache_entry.timestamp, module.exports.getTimestamp(), `minutes`) >= (CACHE_TIMEOUT_MINS[cache_entry_code] ?? CACHE_TIMEOUT_MINS.DEFAULT));
+	return (getTimestampDiff(cache_entry.timestamp, getTimestamp(), `minutes`) >= (CACHE_TIMEOUT_MINS[cache_entry_code] ?? CACHE_TIMEOUT_MINS.DEFAULT));
 }
 
 export function commafyNumber(num) {
