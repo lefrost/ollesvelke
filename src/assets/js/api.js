@@ -113,7 +113,18 @@ export async function refreshCache() {
 		for (let key of Object.keys(cache)) {
 			if (!(
 				(!isNaN(cache[key].timestamp)) &&
-				(utils.getTimestampDiff(cache[key].timestamp, timestamp, `minutes` < (CACHE_TIMEOUT_MINS[key] || CACHE_TIMEOUT_MINS.DEFAULT))
+				(utils.getTimestampDiff(cache[key].timestamp, timestamp, `minutes` < (CACHE_TIMEOUT_MINS[key] || CACHE_TIMEOUT_MINS.DEFAULT)) &&
+				cache[key].data &&
+				(
+					(
+						(typeof cache[key].data === `object`) &&
+						(Object.keys(cache[key].data).length >= 1)
+					) ||
+					(
+						Array.isArray(cache[key].data) &&
+						(cache[key].data.length >= 1)
+					)
+				)
 			))) { 
 				delete cache[key];
 			}
