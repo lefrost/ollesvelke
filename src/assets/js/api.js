@@ -7,6 +7,12 @@ const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
 const API_KEY = import.meta.env.VITE_API_KEY;
 const URL = import.meta.env.VITE_URL;
 
+const CACHE_TIMEOUT_MINS = {
+	DEFAULT: 0,
+	jp_all: 5,
+	jp_map_prefectures: 5
+}
+
 export async function checkSesh() {
 	try {
 		let sesh_val = Number(await getSesh()) || 0;
@@ -96,6 +102,24 @@ export async function getCache() {
 export async function setCache(val) {
 	try {
 		cache.set(JSON.stringify(val));
+	} catch (e) {
+		console.log(e);
+	}
+}
+
+export async function refreshCache() {
+	try {
+		let timestamp = utils.getTimestamp();
+		let cache = await getCache();
+		for (let key of Object.keys(cache)) {
+			if (!(
+				(!isNaN(cache[key].timestamp)) &&
+				(utils.getTimestampDiff(cache[key].timestamp, timestamp, `minutes` < (CACHE_TIMEOUT_MINS[key] || CACHE_TIMEOUT_MINS.DEFAULT))
+			))) { 
+				delete cache[key];
+			}
+		}
+		await setCache(cache);
 	} catch (e) {
 		console.log(e);
 	}
