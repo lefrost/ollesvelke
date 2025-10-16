@@ -9,8 +9,7 @@ const URL = import.meta.env.VITE_URL;
 
 const CACHE_TIMEOUT_MINS = {
 	DEFAULT: 0,
-	jp_all: 5,
-	jp_map_prefectures: 5
+	// todo: add other cache entry codes
 }
 
 export async function checkSesh() {
