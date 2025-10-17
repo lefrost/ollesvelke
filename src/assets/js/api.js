@@ -1,15 +1,74 @@
-import { cache, socket, io_instances, theme, user, sesh, page_code } from './stores.js';
+import { socket, io_instances, theme, user, sesh, page_code } from './stores.js';
 import * as utils from './utils';
+import * as idb from 'idb';
 
 // import { browser } from '$app/environment';
 
 const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
 const API_KEY = import.meta.env.VITE_API_KEY;
 const URL = import.meta.env.VITE_URL;
+const IDB_NAME = import.meta.env.VITE_PROJECT_NAME;
 
 const CACHE_TIMEOUT_MINS = {
 	DEFAULT: 0,
-	// todo: add other cache entry codes
+	jp_all: 60,
+	jp_map_prefectures: 60
+}
+
+export async function openCacheDb() {
+	return idb.openDB(IDB_NAME, 1, {
+		upgrade(db) {
+			if (!db.objectStoreNames.contains(`cache`)) {
+				db.createObjectStore(`cache`);
+			}
+		}
+	});
+}
+
+export async function resetCacheDb() {
+	try {
+		await idb.deleteDB(IDB_NAME);
+	} catch (e) {
+		console.log(e);
+	}
+}
+
+export async function getCacheEntry(code) {
+	try {
+		let db = await openCacheDb();
+		let cache_entry = await db.get(`cache`, code);
+		return cache_entry?.data || null;
+	} catch (e) {
+		if (e.name === `NotFoundError`) {
+			console.log(`IDB mismatch, resetting.`);
+			await resetCacheDb();
+		} else {
+			console.log(e);
+		}
+		return null;
+	}
+}
+
+export async function setCacheEntry(code, val, is_retried = false) {
+	try {
+		let timestamp = utils.getTimestamp();
+		let db = await openCacheDb();
+		await db.put(`cache`, {
+			data: val,
+			timestamp
+		}, code);
+	} catch (e) {
+		if (e.name === `NotFoundError`) {
+			console.log(`IDB mismatch, resetting.`);
+			await resetCacheDb();
+			if (!is_retried) {
+				return await setCacheEntry(code, val, true); // retry if haven't
+			}
+		} else {
+			console.log(e);
+			console.log(code); // test
+		}
+	}
 }
 
 export async function checkSesh() {
@@ -80,56 +139,6 @@ export async function getIoInstances() {
 export async function setIoInstances(val) {
 	try {
 		io_instances.set(JSON.stringify(val));
-	} catch (e) {
-		console.log(e);
-	}
-}
-
-export async function getCache() {
-	return new Promise((resolve, reject) => {
-		try {
-			cache.subscribe((cache) => {
-				resolve(JSON.parse(cache));
-			});
-		} catch (e) {
-			console.log(e);
-			resolve(null);
-		}
-	});
-}
-
-export async function setCache(val) {
-	try {
-		cache.set(JSON.stringify(val));
-	} catch (e) {
-		console.log(e);
-	}
-}
-
-export async function refreshCache() {
-	try {
-		let timestamp = utils.getTimestamp();
-		let cache = await getCache();
-		for (let key of Object.keys(cache)) {
-			if (!(
-				(!isNaN(cache[key].timestamp)) &&
-				(utils.getTimestampDiff(cache[key].timestamp, timestamp, `minutes` < (CACHE_TIMEOUT_MINS[key] || CACHE_TIMEOUT_MINS.DEFAULT)) &&
-				cache[key].data &&
-				(
-					(
-						(typeof cache[key].data === `object`) &&
-						(Object.keys(cache[key].data).length >= 1)
-					) ||
-					(
-						Array.isArray(cache[key].data) &&
-						(cache[key].data.length >= 1)
-					)
-				)
-			))) { 
-				delete cache[key];
-			}
-		}
-		await setCache(cache);
 	} catch (e) {
 		console.log(e);
 	}
