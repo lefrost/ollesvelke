@@ -7,7 +7,8 @@ import * as idb from 'idb';
 const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
 const API_KEY = import.meta.env.VITE_API_KEY;
 const URL = import.meta.env.VITE_URL;
-const IDB_NAME = import.meta.env.VITE_PROJECT_NAME;
+const PROJECT_NAME = import.meta.env.VITE_PROJECT_NAME;
+const IDB_NAME = `${PROJECT_NAME}_idb`;
 
 const CACHE_TIMEOUT_MINS = {
 	DEFAULT: 0,
